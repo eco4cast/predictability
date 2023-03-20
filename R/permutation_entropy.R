@@ -9,7 +9,21 @@
 # Commonly used value of dim ranges from 3 to 7
 # Output is a numeric vector of size=(dim)!
 
+# ordinal_pattern ==============================================================
 ordinal_pattern <- function(x, dim) {
+  #' Computes ordinal patterns for a given time series
+  #' 
+  #' @description Ordinal pattern of a timeseries describe order types of 
+  #' vectors and are coded by permutations. This function finds the ordinal 
+  #' pattern of a timeseries
+  #' 
+  #' @param x numeric vector. The timeseries at hand
+  #' @param dim numeric. The embedding dimension 
+  #'  
+  #' @usage ordinal_pattern(x, dim)
+  #' @return numeric vector of size=(dim)
+  #' 
+  
   # Generate ordinal numbers to assign. For example if dim =3, then
   # ordinal number=0,1,2
   ordinal_numbers <- seq(0, (dim - 1), by = 1)
@@ -39,13 +53,21 @@ ordinal_pattern <- function(x, dim) {
   return(result)
 }
 
-# Function to compute permutation entropy of  a given time series
-# Input (1 argument, Null argument not valid)
-# op = Ordinal pattern computed using the function ordinal_pattern
-# op (type=numeric vector)
-# Output is normalized permutation entropy (type=numeric)
-
+# permu_entropy ================================================================
 permu_entropy <- function(op) {
+  #' Compute permutation entropy of  a given time series
+  #' 
+  #' @description Ordinal pattern of a timeseries describe order types of 
+  #' vectors and are coded by permutations. This function finds the ordinal 
+  #' pattern of a timeseries
+  #' 
+  #' @param op numeric vector. Ordinal pattern computed using the function 
+  #' ordinal_pattern
+  #'  
+  #' @usage permu_entropy(op)
+  #' @return numeric value of normalized permutation entropy
+  #' 
+  
   # Compute maximum entropy. maximum entropy = log(dim!)
   # or maximum entropy = log(length(ordinal_pattern))
   entropy_max <- log(length(op))
