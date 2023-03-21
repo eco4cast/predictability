@@ -130,9 +130,14 @@ for (j in 201:300) {
   }
 }
 
+# NOTE: When the population is completely stable, AR
+# model fails so predictability is NA but should be max
+# TODO: Fix this?
+
 rem[which(rem == 1)] <- 37
 df$relative <- rep(rem, each = t)
-# Plot
+
+# Plots
 
 ggplot(data = df) +
   geom_point(aes(
