@@ -138,10 +138,5 @@ for (i in 3:ft) {
 S2D <- S_t2 / Dis_t2
 lines(S_t2[3:40], col = "red")
 
-# For unpredictable system - done
-
-# Invariance to linear transformations - mathematical
-
 # Poorly sampled time series
-
 y_t2 <- y_t[750:1000]
