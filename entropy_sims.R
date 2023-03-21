@@ -2,54 +2,6 @@
 # Simulate a time series from a random walk model
 # Two (three) measures of predictability
 
-######## Random walk model #########
-set.seed(14)
-# Set up parameters
-x_ic <- 10
-tau_ic <- 1
-a_obs <- 2
-r_obs <- 1
-a_add <- 2
-r_add <- 1
-nt <- 1000
-
-# Initial conditions
-x_0 <- rnorm(1, x_ic, tau_ic)
-tau_add <- 1 / rgamma(1, a_add, r_add)
-tau_obs <- 1 / rgamma(1, a_obs, r_obs)
-
-# simulate x
-x_t <- matrix(0, nrow = nt, ncol = 1)
-x_t[1] <- x_0
-for (i in 2:nt) x_t[i] <- rnorm(1, x_t[i - 1], tau_add)
-
-# simulate y
-y_t <- matrix(0, nrow = nt, ncol = 1)
-for (i in 1:nt) y_t[i] <- rnorm(1, x_t[i], tau_obs)
-
-# Clim
-m_clim <- mean(y_t)
-sd_clim <- sd(y_t)
-
-# Relative entropy each time step for the next
-D_t <- matrix(0, nrow = nt, ncol = 1)
-
-# for (i in 2:nt) {
-#   D_t[i] <- 0.5 * (log(tau_add / tau_obs) +
-#     (tau_obs / tau_add) + ((y_t[i] - y_t[i - 1])^2) / tau_add - 1)
-# }
-
-# If treating y_t as a forecast, with y_0 as the last observed point,
-
-D_t2 <- matrix(0, nrow = nt, ncol = 1)
-
-for (i in 2:nt) {
-  D_t2[i] <- 0.5 * (log(sd_clim / tau_obs) +
-    (tau_obs / sd_clim) + ((m_clim - y_t[i])^2) / sd_clim - 1)
-}
-# plot(1:nt, D_t, type = "l")
-plot(1:nt, D_t2, type = "l", ylab = "K-L Divergence")
-
 # Start here ----
 
 # Observed time series - AR1 process
