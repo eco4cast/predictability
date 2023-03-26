@@ -22,10 +22,13 @@ ordinal_pattern <- function(x, dim) {
   #' Typical values are 3-7.
   #' 
   #' @usage ordinal_pattern(x, dim)
-  #' @return numeric vector of size(dim)
+  #' @return numeric vector of size dim
   #' @references This function code comes from Srinivasan Radhakrishnan and 
   #' can be found here: https://tinyurl.com/ynmkkfaf
   
+  # type tests
+  stopifnot(is.numeric(x) & length(x) > 1)
+  stopifnot(is.numeric(dim) & length(dim) == 1)
   
   # Generate ordinal numbers to assign. For example if dim =3, then
   # ordinal number=0,1,2
@@ -52,7 +55,7 @@ ordinal_pattern <- function(x, dim) {
       }
     }
   }
-
+  
   return(result)
 }
 
@@ -71,9 +74,12 @@ permu_entropy <- function(op) {
   #' @param op numeric vector. Ordinal pattern vector
   #' 
   #' @usage permu_entropy(op)
-  #' @return numeric 
+  #' @return normalized permutation entropy
   #' @references This function code comes from Srinivasan Radhakrishnan and 
   #' can be found here: https://tinyurl.com/ynmkkfaf
+  
+  # type checks
+  stopifnot(is.numeric(op) & length(op) > 1)
   
   # Compute maximum entropy. maximum entropy = log(dim!)
   # or maximum entropy = log(length(ordinal_pattern))
