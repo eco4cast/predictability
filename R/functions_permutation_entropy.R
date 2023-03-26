@@ -8,7 +8,7 @@
 #'library
 #'
 
-# ordinal_pattern ==============================================================
+# calculate ordinal patterns ===================================================
 ordinal_pattern <- function(x, dim) {
   #' Compute the ordinal patterns for a given time series
   #' 
@@ -59,12 +59,7 @@ ordinal_pattern <- function(x, dim) {
   return(result)
 }
 
-# Function to c
-# Input (1 argument, Null argument not valid)
-# op = Ordinal pattern computed using the function ordinal_pattern
-# op (type=numeric vector)
-# Output is normalized permutation entropy (type=numeric)
-
+# calculate permuatation entropy ===============================================
 permu_entropy <- function(op) {
   #' Compute permutation entropy of  a given time series
   #' 
