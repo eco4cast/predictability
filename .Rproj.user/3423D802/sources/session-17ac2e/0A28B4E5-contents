@@ -30,6 +30,9 @@ list(
   # data related targets =======================================================
   tar_target(
     neon_data,
-    pull_data()
+    pull_data(
+      # write controls if copies of the files should be written to the local
+      write = FALSE
+      ) 
   )
 )
