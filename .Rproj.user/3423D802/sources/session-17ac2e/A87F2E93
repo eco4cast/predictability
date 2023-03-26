@@ -1,0 +1,26 @@
+{
+    "id": "A87F2E93",
+    "path": "~/Github/predictability/R/manual/entropy_sims.R",
+    "project_path": "R/manual/entropy_sims.R",
+    "type": "r_source",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1679787245339.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "73,1",
+        "scrollLine": "66"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1679703661,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1679703661,
+    "read_only": false,
+    "read_only_alternatives": []
+}
