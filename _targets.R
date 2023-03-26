@@ -17,9 +17,19 @@ library(tarchetypes)
 library(here)
 
 # read in function files 
+source(here::here("./R/functions_neon_data.R"))
 source(here::here("./R/functions_permutation_entropy.R"))
 
 # set the packages
 targets::tar_option_set(
-  pacakges = c("readr", "here", "entropy")
+  packages = c("readr", "here", "entropy", "magrittr", "dplyr"),
+  error = "stop"
+)
+
+list(
+  # data related targets =======================================================
+  tar_target(
+    neon_data,
+    pull_data()
+  )
 )

@@ -20,15 +20,79 @@ pull_data <- function() {
   #' @usage pull_data
   #' @return no returns, but writes out 5 data files
   
-  # pull the aquatics challenge ================================================
+  ## pull the aquatics challenge ===============================================
   aquatic <- readr::read_csv(
     paste0("https://data.ecoforecast.org/neon4cast-targets/",
            "aquatics/aquatics-targets.csv.gz")) |> 
     na.omit()
+  readr::write_csv(
+    x = aquatic,
+    file = here::here("./data/efi-neon-data/aquatic-daily.csv")
+  )
   hourly_aquatic <- readr::read_csv(
     paste0("https://data.ecoforecast.org/neon4cast-targets/",
            "aquatics/aquatics-expanded-observations.csv.gz")) |> 
     na.omit()
+  readr::write_csv(
+    x = hourly_aquatic,
+    file = here::here("./data/efi-neon-data/aquatic-hourly.csv")
+  )
   
-  # pull 
+  ## pull terrestrial data =====================================================
+  terr_30_min <- readr::read_csv(
+    paste0("https://data.ecoforecast.org/neon4cast-targets/",
+          "terrestrial_30min/terrestrial_30min-targets.csv.gz"), 
+          guess_max = 1e6)
+  readr::write_csv(
+    x = terr_30_min,
+    file = here::here("./data/efi-neon-data/terrerstrial-30-mins.csv")
+  )
+  terr_daily <- readr::read_csv(
+    paste0("https://data.ecoforecast.org/neon4cast-targets/",
+          "terrestrial_daily/terrestrial_daily-targets.csv.gz"), 
+          guess_max = 1e6) |> 
+    na.omit()
+  readr::write_csv(
+    x = terr_daily,
+    file = here::here("./data/efi-neon-data/terrerstrial-daily.csv")
+  )
+  
+  ## pull ticks data ===========================================================
+  ticks <- readr::read_csv(
+    paste0("https://data.ecoforecast.org/neon4cast-targets/",
+          "ticks/ticks-targets.csv.gz")
+    , guess_max = 1e6)
+  readr::write_csv(
+    x = ticks,
+    file = here::here("./data/efi-neon-data/ticks.csv")
+  )
+
+  ## pull phenology data =======================================================
+  phenology <- readr::read_csv(
+    paste0("https://data.ecoforecast.org/neon4cast-targets/",
+           "phenology/phenology-targets.csv.gz"),
+    guess_max = 1e6) |> 
+    na.omit()
+  readr::write_csv(
+    x = phenology,
+    file = here::here("./data/efi-neon-data/phenology.csv")
+  )
+  
+  ## pull beetles data =========================================================
+  beetles <- readr::read_csv(
+    paste0("https://data.ecoforecast.org/neon4cast-targets/",
+           "beetles/beetles-targets.csv.gz"),
+    guess_max = 1e6)
+  readr::write_csv(
+    x = beetles,
+    file = here::here("./data/efi-neon-data/beetles.csv")
+  )
+  
+  listed_res <- list(aquatic, hourly_aquatic, terr_30_min, terr_daily, 
+                     phenology, ticks, beetles)
+  names(listed_res) <- c("aquatic_daily", "aquatic_hourly", 
+                         "terrestrial_30mins", "terrestrial_daily", 
+                         "phenology", "ticks", "beetles")
+  
+  return(listed_res)
 }
