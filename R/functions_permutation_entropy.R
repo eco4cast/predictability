@@ -1,15 +1,32 @@
-# Permutation Entropy is computed using the method prescribed by Bandt and Pompe
-# Bandt, C., & Pompe, B. (2002). Permutation entropy: a natural complexity measure for time series. Physical review letters, 88(17), 174102. #nolint
-# Code from https://github.com/srk-srinivasan/Permutation-Entropy/blob/master/permu_entropy.R #nolint
+##' AUTHOR: Shubhi Sharma
+##' DATE OF CREATION: 2023-02-20
+#'
+#' This file contains functions to calculate permutation entropy from a time
+#' series, that are then used to analyze a variety of different data.
+#'
+#'All functions are documented using the roxygen2 framework and the docstring
+#'library
+#'
 
-# Function to compute the ordinal patterns for a given time series.
-# Input (2 arguments. Null arguments are not vaild)
-# x = Given time series (type=numeric vector)
-# dim = Embedding dimension (type=numeric)
-# Commonly used value of dim ranges from 3 to 7
-# Output is a numeric vector of size=(dim)!
-
+# ordinal_pattern ==============================================================
 ordinal_pattern <- function(x, dim) {
+  #' Compute the ordinal patterns for a given time series
+  #' 
+  #' @description This function takes in a time series and gets the ordinal 
+  #' patterns which are needed to actually calculate the permuatation entropy. 
+  #' Note here that we are using a permuatation entropy calculation that is 
+  #' described by Bandt and Pompe (2002 - Phy R Lett)
+  #' 
+  #' @param x numeric vector. The time series
+  #' @param dim numeric. Embedding dimension used for the actual calculation.
+  #' Typical values are 3-7.
+  #' 
+  #' @usage ordinal_pattern(x, dim)
+  #' @return numeric vector of size(dim)
+  #' @references This function code comes from Srinivasan Radhakrishnan and 
+  #' can be found here: https://tinyurl.com/ynmkkfaf
+  
+  
   # Generate ordinal numbers to assign. For example if dim =3, then
   # ordinal number=0,1,2
   ordinal_numbers <- seq(0, (dim - 1), by = 1)
@@ -39,13 +56,25 @@ ordinal_pattern <- function(x, dim) {
   return(result)
 }
 
-# Function to compute permutation entropy of  a given time series
+# Function to c
 # Input (1 argument, Null argument not valid)
 # op = Ordinal pattern computed using the function ordinal_pattern
 # op (type=numeric vector)
 # Output is normalized permutation entropy (type=numeric)
 
 permu_entropy <- function(op) {
+  #' Compute permutation entropy of  a given time series
+  #' 
+  #' @description This function takes the ordinal pattern of a timeseries as 
+  #' returned from ordinal_pattern(), and gives the permutation entropy measure
+  #' 
+  #' @param op numeric vector. Ordinal pattern vector
+  #' 
+  #' @usage permu_entropy(op)
+  #' @return numeric 
+  #' @references This function code comes from Srinivasan Radhakrishnan and 
+  #' can be found here: https://tinyurl.com/ynmkkfaf
+  
   # Compute maximum entropy. maximum entropy = log(dim!)
   # or maximum entropy = log(length(ordinal_pattern))
   entropy_max <- log(length(op))
