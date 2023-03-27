@@ -35,10 +35,6 @@ pull_data <- function(write = FALSE) {
     paste0("https://data.ecoforecast.org/neon4cast-targets/",
           "terrestrial_30min/terrestrial_30min-targets.csv.gz"), 
           guess_max = 1e6)
-  readr::write_csv(
-    x = terr_30_min,
-    file = here::here("./data/efi-neon-data/terrerstrial-30-mins.csv")
-  )
   terr_daily <- readr::read_csv(
     paste0("https://data.ecoforecast.org/neon4cast-targets/",
           "terrestrial_daily/terrestrial_daily-targets.csv.gz"), 
@@ -48,8 +44,8 @@ pull_data <- function(write = FALSE) {
   ## pull ticks data ===========================================================
   ticks <- readr::read_csv(
     paste0("https://data.ecoforecast.org/neon4cast-targets/",
-          "ticks/ticks-targets.csv.gz")
-    , guess_max = 1e6)
+          "ticks/ticks-targets.csv.gz"),
+    guess_max = 1e6)
   
   ## pull phenology data =======================================================
   phenology <- readr::read_csv(
@@ -77,6 +73,10 @@ pull_data <- function(write = FALSE) {
     readr::write_csv(
       x = terr_daily,
       file = here::here("./data/efi-neon-data/terrerstrial-daily.csv")
+    )
+    readr::write_csv(
+      x = terr_30_min,
+      file = here::here("./data/efi-neon-data/terrerstrial-30-mins.csv")
     )
     readr::write_csv(
       x = ticks,
