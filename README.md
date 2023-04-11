@@ -1,5 +1,8 @@
-# predictability
-Simulations exploring measures of predictability for time series data
+# Realized & Intrinsic Predictability 
+
+This repo is home to a project led by the EFI Theory working group, investigating measures of predictability for time series data. 
+
+-----
 
 Shield: [![CC BY 4.0][cc-by-shield]][cc-by]
 
