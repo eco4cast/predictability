@@ -72,11 +72,11 @@ pull_data <- function(write = FALSE) {
     )
     readr::write_csv(
       x = terr_daily,
-      file = here::here("./data/efi-neon-data/terrerstrial-daily.csv")
+      file = here::here("./data/efi-neon-data/terrestrial-daily.csv")
     )
     readr::write_csv(
       x = terr_30_min,
-      file = here::here("./data/efi-neon-data/terrerstrial-30-mins.csv")
+      file = here::here("./data/efi-neon-data/terrestrial-30-mins.csv")
     )
     readr::write_csv(
       x = ticks,
