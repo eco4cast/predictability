@@ -180,13 +180,44 @@ make_variable_plot <- function(listed_res, challenge, variables, colours,
   #' output_path = here("./figs/neon-data-timeseries/))
   #' @return no returns, but writes out data files
   
+  # matching list is to put the y-axes of each of the challenges variables 
+  # in one list 
   matching_list <- list(
-    
+    aquatic_daily = list(
+      oxygen = 
+        "Surface mean daily dissolved oxygen concentration (mg L<sup>-1</sup>",
+      temperature = "Surface mean daily water temperature (°C)",
+      chla = "Mean daily chlorophyll-a concentration (mg L<sup>-1</sup>"
+    ),
+    aquatic_hourly = list(
+      temperature = "Surface hourly water temperature (°C)"
+    ),
+    terrestrial_30mins = list(
+      nee = "Net ecosystem exchange (g C m<sup>-2</sup> day<sup>-1</sup>)",
+      le = "Latent Heat Flux (W m<sup>-2</sup>)"
+    ),
+    terrestrial_daily = list(
+      nee = "Net ecosystem exchange (g C m<sup>-2</sup> day<sup>-1</sup>)",
+      le = "Latent Heat Flux (W m<sup>-2</sup>)"
+    ),
+    phenology = list(
+      gcc_90 = "Green chromatic coordinate (90th percentile)",
+      rcc_90 = "Red chromatic coordinate (90th percentile)"
+    ),
+    ticks = list(
+      amblyomma_americanum = 
+        paste0("Density of *Amblyomma americanum* nympths", 
+               "per week (ticks per 1.6km<sup>2</sup>")
+    ),
+    beetles = list(
+      abundance = "Total number of carabids per-trap-night",
+      ricness = "Total number of unique species in a sampling bout"
+    )
   )
   
   if(variables == "all") {
     df <- listed_res$`challenge` 
-    for(i in unique())
+    for(i in uniqu
   }
   
   p <- ggplot2::ggplot(data = listed_res$challenge) + 
