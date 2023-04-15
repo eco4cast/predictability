@@ -22,7 +22,7 @@ source(here::here("./R/functions_permutation_entropy.R"))
 
 # set the packages
 targets::tar_option_set(
-  packages = c("readr", "here", "entropy", "magrittr", "dplyr"),
+  packages = c("readr", "here", "entropy", "magrittr", "dplyr", "patchwork"),
   error = "stop"
 )
 

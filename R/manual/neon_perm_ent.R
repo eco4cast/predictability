@@ -95,3 +95,100 @@ ggplot() +
   ) 
 
 # aquatic daily ================================================================
+str(aquat_day)
+unique(aquat_day$variable)
+
+oxy_day <- aquat_day %>% 
+  dplyr::filter(variable == "oxygen")
+mean_oxy_day <- oxy_day %>% 
+  dplyr::group_by(datetime) %>% 
+  dplyr::summarize(mean_oxy = mean(observation, na.rm = TRUE))
+temp_day <- aquat_day %>% 
+  dplyr::filter(variable == "temperature")
+mean_temp_day <- temp_day %>% 
+  dplyr::group_by(datetime) %>% 
+  dplyr::summarize(mean_temp = mean(observation, na.rm = TRUE))
+chla_day <- aquat_day %>% 
+  dplyr::filter(variable == "chla")
+mean_chla_day <- chla_day %>% 
+  dplyr::group_by(datetime) %>% 
+  dplyr::summarize(mean_chla = mean(observation, na.rm = TRUE))
+
+ggplot() + 
+  geom_point(data = oxy_day, 
+             aes(x = datetime, y = observation), 
+             shape = 21, alpha = 0.02, fill = "grey80") +
+  geom_line(data = mean_oxy_day, 
+            aes(x = datetime, y = mean_oxy)) + 
+  theme_base() + 
+  labs(x = "Date", 
+       y = "Surface Mean Daily Dissolved Oxygen (mg L<sup>-1</sup>)") +
+  theme(
+    axis.title.y = element_markdown()
+  ) 
+
+ggplot() + 
+  geom_point(data = temp_day, 
+             aes(x = datetime, y = observation), 
+             shape = 21, alpha = 0.02, fill = "#dd6e0f") +
+  geom_line(data = mean_temp_day, 
+            aes(x = datetime, y = mean_temp)) + 
+  theme_base() + 
+  labs(x = "Date", y = "Surface Mean Daily Water Temperature (°C)") +
+  theme(
+    axis.title.y = element_markdown()
+  ) 
+
+ggplot() + 
+  geom_point(data = chla_day, 
+             aes(x = datetime, y = observation), 
+             shape = 21, alpha = 0.02, fill = "#dd6e0f") +
+  geom_line(data = mean_chla_day, 
+            aes(x = datetime, y = mean_chla)) + 
+  theme_base() + 
+  labs(x = "Date", 
+       y = "Daily Mean Chlorophyll-a Concentration (mg L<sup>-1</sup>)") +
+  theme(
+    axis.title.y = element_markdown()
+  )  + 
+  ylim(c(0, 75))
+
+# beetles ======================================================================
+beetles <- listed_res$beetles
+
+unique(beetles$variable)
+
+make_variable_plot <- function(listed_res, challenge, variables, colours,
+                               save, output_path = NULL) {
+  #' Make a plot for the challenge and variable of interest
+  #' 
+  #' @description Taking the whole list of the challenge dataframes, specify the 
+  #' challenge and the variable at hand, then what colour you want to use 
+  #' 
+  #' @param listed_res list. A list of all the downloaded NEON data
+  #' @param challenge character. Specify which of the challenges should be used.
+  #' options are "aquatic_daily", "aquatic_hourly", "terrestrial_30mins", 
+  #' "terrestrial_daily", "phenology", "ticks", "beetles"
+  #' @param variables character. What variable(s) to be plotted. Any subset of
+  #' the variables in a challenge can be used. 
+  #' @param colours character. What colour should the points be in the plot
+  #' @param save boolean. If the file should be saved or not
+  #' @param output_path character. Where to save the files 
+  #' 
+  #' @usage make_variable_plot(listed_res, "aquatic_daily", "all", 
+  #' colours = c("white", "orange", "green"), save = TRUE, 
+  #' output_path = here("./figs/neon-data-timeseries/))
+  #' @return no returns, but writes out data files
+  
+  matching_list <- list(
+    
+  )
+  
+  if(variables == "all") {
+    df <- listed_res$`challenge` 
+    for(i in unique())
+  }
+  
+  p <- ggplot2::ggplot(data = listed_res$challenge) + 
+    
+}

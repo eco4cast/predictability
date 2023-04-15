@@ -129,23 +129,25 @@ plot_neon_timeseries <- function(listed_res, output_path) {
     dplyr::group_by(datetime) %>% 
     dplyr::summarize(mean_le = mean(le, na.rm = TRUE))
   
+  p_le_day <- ggplot() + 
+    geom_point(data = le_day, 
+               aes(x = datetime, y = le), 
+               shape = 21, alpha = 0.02, fill = "red") +
+    geom_line(data = le_avg_day, 
+              aes(x = datetime, y = mean_le)) + 
+    theme_base() + 
+    labs(x = "Date", y = "Latent Heat Flux (W m<sup>-2</sup>)") +
+    theme(
+      axis.title.x = ggtext::element_markdown(),
+      axis.title.y = ggtext::element_markdown()
+    ) + 
+    ylim(c(-10, 250))
   
   ggplot2::ggsave(
     # filename
     paste0(output_path, "terr-daily-latent-heat-flux.png"),
     # plot
-    ggplot() + 
-      geom_point(data = le_day, 
-                 aes(x = datetime, y = le), 
-                 shape = 21, alpha = 0.02, fill = "red") +
-      geom_line(data = le_avg_day, 
-                aes(x = datetime, y = mean_le)) + 
-      theme_base() + 
-      labs(x = "Date", y = "Latent Heat Flux (W m^-2)") +
-      theme(
-        axis.title.y = element_markdown()
-      ) + 
-      ylim(c(-10, 250))
+    p_le_day
   )
   
   # now do with the other variable
@@ -157,22 +159,33 @@ plot_neon_timeseries <- function(listed_res, output_path) {
     dplyr::group_by(datetime) %>% 
     dplyr::summarize(mean_nee = mean(nee, na.rm = TRUE))
   
+  p_nee_day <- ggplot() + 
+    geom_point(data = nee_day, 
+               aes(x = datetime, y = nee), 
+               shape = 21, alpha = 0.02, fill = "blue") +
+    geom_line(data = nee_avg_day, 
+              aes(x = datetime, y = mean_nee)) + 
+    theme_base() + 
+    labs(x = "Date", 
+         y = "Net ecosystem exchange (g C m<sup>-2</sup> day<sup>-1</sup>)") +
+    theme(
+      axis.title.y = element_markdown()
+    )
+  
   # make the plot
   ggplot2::ggsave(
     # file name
     paste0(output_path, "terr-daily-net-eco-exchange.png"),
     # the plot
-    ggplot() + 
-      geom_point(data = nee_day, 
-                 aes(x = datetime, y = nee), 
-                 shape = 21, alpha = 0.02, fill = "blue") +
-      geom_line(data = nee_avg_day, 
-                aes(x = datetime, y = mean_nee)) + 
-      theme_base() + 
-      labs(x = "Date", y = "Net ecosystem exchange (g C m^-2 day^-1)") +
-      theme(
-        axis.title.y = element_markdown()
-      ) 
+    p_nee_day
+  )
+  
+  # make one of both plots side by side 
+  p_terr_day <- p_le_day + p_nee_day
+  
+  ggplot2::ggsave(
+    paste0(output_path, "terr-daily-all-vars.png"),
+    p_terr_day
   )
   
   ## terrestrial thirty minutes ================================================
