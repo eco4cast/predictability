@@ -21,6 +21,9 @@ library(ggtext)
 terr_day <- readr::read_csv(
   here::here("./data/efi-neon-data/terrestrial-daily.csv")
   )
+aquat_day <- readr::read_csv(
+  here::here("./data/efi-neon-data/aquatic-daily.csv")
+)
 
 # data set up ==================================================================
 
@@ -91,4 +94,4 @@ ggplot() +
     axis.title.y = element_markdown()
   ) 
 
-  
+# aquatic daily ================================================================

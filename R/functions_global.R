@@ -92,3 +92,19 @@ theme_base <- function(base_size = 16, base_family = "") {
     )
   # TODO: get margins right
 }
+
+# get_data =====================================================================
+get_data_csv = function(file) {
+  #' Takes in the file and reads it for use
+  #' 
+  #' @description Generic function to interface with the file targets, to read 
+  #' them in and make them available for analysis
+  #' 
+  #' @param file character. The file path in the target
+  #'  
+  #' @usage get_data_csv(here("./data/wild-lice/file.csv"))
+  #' @return Dataframe 
+  #' 
+  
+  readr::read_csv(file, show_col_types = FALSE) 
+}
