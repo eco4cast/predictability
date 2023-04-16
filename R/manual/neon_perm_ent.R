@@ -18,11 +18,17 @@ library(ggtext)
 
 # going to go through the process once iwth one of the datasets, so for now I'll
 # just ues terrestrial-daily, for no particular reason
-terr_day <- readr::read_csv(
+terr_daily <- readr::read_csv(
   here::here("./data/efi-neon-data/terrestrial-daily.csv")
   )
-aquat_day <- readr::read_csv(
+terr_30_min <- readr::read_csv(
+  here::here("./data/efi-neon-data/terrestrial-30-mins.csv")
+)
+aquatic_daily <- readr::read_csv(
   here::here("./data/efi-neon-data/aquatic-daily.csv")
+)
+aquatic_hourly <- readr::read_csv(
+  here::here("./data/efi-neon-data/aquatic-hourly.csv")
 )
 beetles <- readr::read_csv(
   here::here("./data/efi-neon-data/beetles.csv")
@@ -30,6 +36,11 @@ beetles <- readr::read_csv(
 phenology <- readr::read_csv(
   here::here("./data/efi-neon-data/phenology.csv")
 )
+ticks <- readr::read_csv(
+  here::here("./data/efi-neon-data/ticks.csv")
+)
+
+source(here("./R/functions_global.R"))
 
 # data set up ==================================================================
 
@@ -233,6 +244,27 @@ ggplot(data = rcc_90) +
   theme(
     axis.title.y = element_markdown()
   ) 
+
+# ticks ========================================================================
+unique(ticks$variable)
+
+mean_ticks <- ticks %>% 
+  dplyr::group_by(datetime) %>% 
+  dplyr::summarize(mean_ticks = mean(observation, na.rm = TRUE))
+
+ggplot(data = ticks) + 
+  geom_point(aes(x = datetime, y = observation),
+             shape = 21, alpha = 0.2, fill = "blue4") + 
+  geom_line(data = mean_ticks, aes(x = datetime, y = mean_ticks)) + 
+  theme_base() + 
+  labs(x = "Date", 
+       y = expression(
+         "Density of *Amblyomma americanum* nympths per week (ticks per 1.6km<sup>2</sup>")) +
+  theme(
+    axis.title.y = element_markdown()
+  ) 
+
+
 
 
 
