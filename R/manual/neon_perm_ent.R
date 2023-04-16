@@ -157,6 +157,64 @@ ggplot() +
 beetles <- listed_res$beetles
 
 unique(beetles$variable)
+abund_beetle <- beetles %>% 
+  dplyr::filter(variable == "abundance") 
+mean_abund_beetle <- abund_beetle %>% 
+  dplyr::group_by(datetime) %>% 
+  dplyr::summarize(mean_abund = mean(observation, na.rm = TRUE))
+
+ggplot(data = beetles) + 
+  geom_point(aes(x = datetime, y = observation),
+             shape = 21, alpha = 0.02, fill = "purple") + 
+  geom_line(data = mean_abund_beetle, aes(x = datetime, y = mean_abund)) + 
+  theme_base() + 
+  labs(x = "Date", 
+       y = "Total number of carabids per-trap-night") +
+  theme(
+    axis.title.y = element_markdown()
+  )  + 
+  ylim(c(0, 20))
+
+rich_beetle <- beetles %>% 
+  dplyr::filter(variable == "abundance") 
+mean_rich_beetle <- abund_beetle %>% 
+  dplyr::group_by(datetime) %>% 
+  dplyr::summarize(mean_abund = mean(observation, na.rm = TRUE))
+
+ggplot(data = beetles) + 
+  geom_point(aes(x = datetime, y = observation),
+             shape = 21, alpha = 0.02, fill = "purple") + 
+  geom_line(data = mean_abund_beetle, aes(x = datetime, y = mean_abund)) + 
+  theme_base() + 
+  labs(x = "Date", 
+       y = "Total number of carabids per-trap-night") +
+  theme(
+    axis.title.y = element_markdown()
+  )  + 
+  ylim(c(0, 20))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 make_variable_plot <- function(listed_res, challenge, variables, colours,
                                save, output_path = NULL) {
@@ -217,7 +275,15 @@ make_variable_plot <- function(listed_res, challenge, variables, colours,
   
   if(variables == "all") {
     df <- listed_res$`challenge` 
-    for(i in uniqu
+    for(i in names(matching_list$aquatic_daily)) {
+      
+      chla_day <- aquat_day %>% 
+        dplyr::filter(variable == "chla")
+      mean_chla_day <- chla_day %>% 
+        dplyr::group_by(datetime) %>% 
+        dplyr::summarize(mean_chla = mean(observation, na.rm = TRUE))
+      
+    }
   }
   
   p <- ggplot2::ggplot(data = listed_res$challenge) + 
