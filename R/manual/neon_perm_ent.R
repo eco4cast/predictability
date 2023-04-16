@@ -24,6 +24,12 @@ terr_day <- readr::read_csv(
 aquat_day <- readr::read_csv(
   here::here("./data/efi-neon-data/aquatic-daily.csv")
 )
+beetles <- readr::read_csv(
+  here::here("./data/efi-neon-data/beetles.csv")
+)
+phenology <- readr::read_csv(
+  here::here("./data/efi-neon-data/phenology.csv")
+)
 
 # data set up ==================================================================
 
@@ -154,8 +160,6 @@ ggplot() +
   ylim(c(0, 75))
 
 # beetles ======================================================================
-beetles <- listed_res$beetles
-
 unique(beetles$variable)
 abund_beetle <- beetles %>% 
   dplyr::filter(variable == "abundance") 
@@ -163,17 +167,17 @@ mean_abund_beetle <- abund_beetle %>%
   dplyr::group_by(datetime) %>% 
   dplyr::summarize(mean_abund = mean(observation, na.rm = TRUE))
 
-ggplot(data = beetles) + 
+ggplot(data = abund_beetle) + 
   geom_point(aes(x = datetime, y = observation),
-             shape = 21, alpha = 0.02, fill = "purple") + 
+             shape = 21, alpha = 0.1, fill = "purple") + 
   geom_line(data = mean_abund_beetle, aes(x = datetime, y = mean_abund)) + 
   theme_base() + 
   labs(x = "Date", 
        y = "Total number of carabids per-trap-night") +
   theme(
     axis.title.y = element_markdown()
-  )  + 
-  ylim(c(0, 20))
+  ) +
+  ylim(c(0,5))
 
 rich_beetle <- beetles %>% 
   dplyr::filter(variable == "abundance") 
@@ -181,28 +185,54 @@ mean_rich_beetle <- abund_beetle %>%
   dplyr::group_by(datetime) %>% 
   dplyr::summarize(mean_abund = mean(observation, na.rm = TRUE))
 
-ggplot(data = beetles) + 
+ggplot(data = rich_beetle) + 
   geom_point(aes(x = datetime, y = observation),
-             shape = 21, alpha = 0.02, fill = "purple") + 
+             shape = 21, alpha = 0.1, fill = "maroon") + 
   geom_line(data = mean_abund_beetle, aes(x = datetime, y = mean_abund)) + 
   theme_base() + 
   labs(x = "Date", 
        y = "Total number of carabids per-trap-night") +
   theme(
     axis.title.y = element_markdown()
-  )  + 
-  ylim(c(0, 20))
+  ) + 
+  ylim(c(0,6))
 
 
+# phenology ====================================================================
+unique(phenology$variable)
+gcc_90 <- phenology %>% 
+  dplyr::filter(variable == "gcc_90") 
+mean_gcc_90 <- gcc_90 %>% 
+  dplyr::group_by(datetime) %>% 
+  dplyr::summarize(mean_gcc_90 = mean(observation, na.rm = TRUE))
 
+ggplot(data = gcc_90) + 
+  geom_point(aes(x = datetime, y = observation),
+             shape = 21, alpha = 0.02, fill = "green") + 
+  geom_line(data = mean_gcc_90, aes(x = datetime, y = mean_gcc_90)) + 
+  theme_base() + 
+  labs(x = "Date", 
+       y = "Green chromatic coordinate (90th percentile)") +
+  theme(
+    axis.title.y = element_markdown()
+  ) 
 
+rcc_90 <- phenology %>% 
+  dplyr::filter(variable == "rcc_90") 
+mean_rcc_90 <- rcc_90 %>% 
+  dplyr::group_by(datetime) %>% 
+  dplyr::summarize(mean_rcc_90 = mean(observation, na.rm = TRUE))
 
-
-+
-
-
-
-
+ggplot(data = rcc_90) + 
+  geom_point(aes(x = datetime, y = observation),
+             shape = 21, alpha = 0.02, fill = "red") + 
+  geom_line(data = mean_rcc_90, aes(x = datetime, y = mean_rcc_90)) + 
+  theme_base() + 
+  labs(x = "Date", 
+       y = "Red chromatic coordinate (90th percentile)") +
+  theme(
+    axis.title.y = element_markdown()
+  ) 
 
 
 
