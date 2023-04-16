@@ -276,6 +276,8 @@ plot_neon_timeseries <- function(listed_res, output_path) {
     p_aquat_daily
   )
   
+  ## aquatic hourly ============================================================
+  
   ## beetles ===================================================================
   beetles <- listed_res$beetles
   
@@ -303,6 +305,7 @@ plot_neon_timeseries <- function(listed_res, output_path) {
     p_abund
   )
   
+  # richness in species 
   rich_beetle <- beetles %>% 
     dplyr::filter(variable == "abundance") 
   mean_rich_beetle <- abund_beetle %>% 
@@ -335,6 +338,80 @@ plot_neon_timeseries <- function(listed_res, output_path) {
   )
   
   ## phenology =================================================================
+  phenology <- listed_res$phenology
+  
+  # green chromatic first 
+  gcc_90 <- phenology %>% 
+    dplyr::filter(variable == "gcc_90") 
+  mean_gcc_90 <- gcc_90 %>% 
+    dplyr::group_by(datetime) %>% 
+    dplyr::summarize(mean_gcc_90 = mean(observation, na.rm = TRUE))
+  
+  p_gcc <- ggplot(data = gcc_90) + 
+    geom_point(aes(x = datetime, y = observation),
+               shape = 21, alpha = 0.02, fill = "green") + 
+    geom_line(data = mean_gcc_90, aes(x = datetime, y = mean_gcc_90)) + 
+    theme_base() + 
+    labs(x = "Date", 
+         y = "Green chromatic coordinate (90th percentile)") +
+    theme(
+      axis.title.y = element_markdown()
+    ) 
+  ggplot2::ggsave(
+    paste0(output_path, "phenology-gcc.png"),
+    p_gcc
+  )
+  
+  # red chromatic now
+  rcc_90 <- phenology %>% 
+    dplyr::filter(variable == "rcc_90") 
+  mean_rcc_90 <- rcc_90 %>% 
+    dplyr::group_by(datetime) %>% 
+    dplyr::summarize(mean_rcc_90 = mean(observation, na.rm = TRUE))
+  
+  p_rcc <- ggplot(data = rcc_90) + 
+    geom_point(aes(x = datetime, y = observation),
+               shape = 21, alpha = 0.02, fill = "red") + 
+    geom_line(data = mean_rcc_90, aes(x = datetime, y = mean_rcc_90)) + 
+    theme_base() + 
+    labs(x = "Date", 
+         y = "Red chromatic coordinate (90th percentile)") +
+    theme(
+      axis.title.y = element_markdown()
+    ) 
+  ggplot2::ggsave(
+    paste0(output_path, "phenology-rcc.png"),
+    p_rcc
+  )
+  
+  # add plots together
+  p_phenology <- p_gcc + p_rcc 
+  ggplot2::ggsave(
+    paste0(output_path, "phenology-all-vars.png"),
+    p_phenology
+  )
+  
+  # ticks ======================================================================
+  ticks <- listed_res$ticks
+  
+  mean_ticks <- ticks %>% 
+    dplyr::group_by(datetime) %>% 
+    dplyr::summarize(mean_ticks = mean(observation, na.rm = TRUE))
+  
+  p_ticks <- ggplot(data = ticks) + 
+    geom_point(aes(x = datetime, y = observation),
+               shape = 21, alpha = 0.2, fill = "blue4") + 
+    geom_line(data = mean_ticks, aes(x = datetime, y = mean_ticks)) + 
+    theme_base() + 
+    labs(x = "Date", 
+         y = "Weekly density of  nymphs (ticks/1.6km<sup>2</sup>)") +
+    theme(
+      axis.title.y = element_markdown()
+    ) 
+  ggplot2::ggsave(
+    paste0(output_path, "ticks.png"),
+    p_ticks
+  )
   
 
 }
