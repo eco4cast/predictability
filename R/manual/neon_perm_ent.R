@@ -130,7 +130,7 @@ ggplot() +
 ggplot() + 
   geom_point(data = temp_day, 
              aes(x = datetime, y = observation), 
-             shape = 21, alpha = 0.02, fill = "#dd6e0f") +
+             shape = 21, alpha = 0.02, fill = "orange") +
   geom_line(data = mean_temp_day, 
             aes(x = datetime, y = mean_temp)) + 
   theme_base() + 
@@ -142,7 +142,7 @@ ggplot() +
 ggplot() + 
   geom_point(data = chla_day, 
              aes(x = datetime, y = observation), 
-             shape = 21, alpha = 0.02, fill = "#dd6e0f") +
+             shape = 21, alpha = 0.02, fill = "green3") +
   geom_line(data = mean_chla_day, 
             aes(x = datetime, y = mean_chla)) + 
   theme_base() + 
@@ -198,7 +198,7 @@ ggplot(data = beetles) +
 
 
 
-
++
 
 
 
