@@ -71,7 +71,7 @@ aquatics_daily_perm_ent <- function(all_neon_data, data_path, fig_path) {
         dplyr::filter(variable == "tempurature") 
       temp_vec <- df_temp$observation
       
-      
+      oxy_npe <- 
       
     }
     ggplot(data = df %>% 
