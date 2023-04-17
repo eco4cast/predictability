@@ -2,5 +2,5 @@
 .Rhistory
 *.pdf
 *.png
-/data/efi-neon-data/*
+/data/efi-neon-data/*.csv
 .Rproj.user
