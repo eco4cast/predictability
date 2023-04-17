@@ -44,24 +44,24 @@ source(here("./R/functions_global.R"))
 
 # data set up ==================================================================
 
-names(terr_day)
-unique(terr_day$variable)
+names(terr_daily)
+unique(terr_daily$variable)
 
 # currently in long format, so going to pivot to a wide format
 terr_day_wide <- tidyr::pivot_wider(
-  data = terr_day, 
+  data = terr_daily, 
   names_from = variable,
   values_from = observation
 )
 
 # look at the mean values per datetime ob
-avg_terr_day = terr_day %>% 
+avg_terr_day = terr_daily %>% 
   dplyr::group_by(datetime, variable) %>% 
   dplyr::summarize(mean_obs = mean(observation, na.rm = TRUE))
 
 
 # plot the variable of interest through time
-ggplot2::ggplot(data = terr_day) +
+ggplot2::ggplot(data = terr_daily) +
   geom_point(aes(x = datetime, y = observation, fill = variable), 
              shape = 21, alpha = 0.02) + 
   geom_line(data = avg_terr_day, 
@@ -69,7 +69,7 @@ ggplot2::ggplot(data = terr_day) +
   theme_base()
 
 # let's just do one plot at a time so we can see what's going on
-le_day <- terr_day %>% 
+le_day <- terr_daily %>% 
   dplyr::filter(variable == "le") %>% 
   dplyr::mutate(le = observation) %>% 
   dplyr::select(-variable) 
@@ -91,7 +91,7 @@ ggplot() +
   ylim(c(-10, 250))
 
 # now for the nee one
-nee_day <- terr_day %>% 
+nee_day <- terr_daily %>% 
   dplyr::filter(variable == "nee") %>% 
   dplyr::mutate(nee = observation) %>% 
   dplyr::select(-variable) 
@@ -112,7 +112,7 @@ ggplot() +
   ) 
 
 # aquatic daily ================================================================
-str(aquat_day)
+str(aquat_daily)
 unique(aquat_day$variable)
 
 oxy_day <- aquat_day %>% 
