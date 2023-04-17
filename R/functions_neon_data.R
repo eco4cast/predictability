@@ -62,6 +62,12 @@ pull_data <- function(write = FALSE) {
     paste0("https://data.ecoforecast.org/neon4cast-targets/",
            "beetles/beetles-targets.csv.gz"),
     guess_max = 1e6)
+  
+  ## pull site data ============================================================
+  site_data <- readr::read_csv(
+    paste0("https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/",
+    "NEON_Field_Site_Metadata_20220412.csv")
+  )
 
   # if write is TRUE, then write the data to files 
   if(write == TRUE) {
@@ -93,32 +99,36 @@ pull_data <- function(write = FALSE) {
       x = beetles,
       file = here::here("./data/efi-neon-data/beetles.csv")
     )
+    readr::write_csv(
+      x = site_data,
+      file = here::here("./data/efi-neon-data/site_data.csv")
+    )
   }
   
-  listed_res <- list(aquatic_daily, aquatic_hourly, terr_30_min, terr_daily, 
-                     phenology, ticks, beetles)
-  names(listed_res) <- c("aquatic_daily", "aquatic_hourly", 
+  all_neon_data <- list(aquatic_daily, aquatic_hourly, terr_30_min, terr_daily, 
+                     phenology, ticks, beetles, site_data)
+  names(all_neon_data) <- c("aquatic_daily", "aquatic_hourly", 
                          "terrestrial_30mins", "terrestrial_daily", 
-                         "phenology", "ticks", "beetles")
+                         "phenology", "ticks", "beetles", "site_data")
   
-  return(listed_res)
+  return(all_neon_data)
 }
 
 # plot all timeseries ==========================================================
-plot_timeseries <- function(listed_res, output_path) {
+plot_timeseries <- function(all_neon_data, output_path) {
   #' Plot all useful timeseries from the NEON forecasting challenge
   #' 
   #' @description For simple visualization purposes, plot the different 
   #' timeseries and save them to files 
   #' 
-  #' @param listed_res list. A list of all the downloaded NEON data.
+  #' @param all_neon_data list. A list of all the downloaded NEON data.
   #' @param output_path character. Where to save the files 
   #' 
-  #' @usage plot_neon_timeseries(listed_res)
+  #' @usage plot_neon_timeseries(all_neon_data)
   #' @return no returns, but writes out 5 data files
   
   ## daily terrestrial =========================================================
-  terr_day <- listed_res$terrestrial_daily 
+  terr_day <- all_neon_data$terrestrial_daily 
   
   # split into the two variable types - do the le one first
   le_day <- terr_day %>% 
@@ -191,7 +201,7 @@ plot_timeseries <- function(listed_res, output_path) {
   ## terrestrial thirty minutes ================================================
   
   ## aquatic daily =============================================================
-  aquatic_daily <- listed_res$aquatic_daily
+  aquatic_daily <- all_neon_data$aquatic_daily
   
   # for oxygen first 
   oxy_day <- aquatic_daily %>% 
@@ -279,7 +289,7 @@ plot_timeseries <- function(listed_res, output_path) {
   ## aquatic hourly ============================================================
   
   ## beetles ===================================================================
-  beetles <- listed_res$beetles
+  beetles <- all_neon_data$beetles
   
   # abundance first
   abund_beetle <- beetles %>% 
@@ -338,7 +348,7 @@ plot_timeseries <- function(listed_res, output_path) {
   )
   
   ## phenology =================================================================
-  phenology <- listed_res$phenology
+  phenology <- all_neon_data$phenology
   
   # green chromatic first 
   gcc_90 <- phenology %>% 
@@ -392,7 +402,7 @@ plot_timeseries <- function(listed_res, output_path) {
   )
   
   # ticks ======================================================================
-  ticks <- listed_res$ticks
+  ticks <- all_neon_data$ticks
   
   mean_ticks <- ticks %>% 
     dplyr::group_by(datetime) %>% 

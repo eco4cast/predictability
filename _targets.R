@@ -40,7 +40,7 @@ list(
   tar_target(
     plot_neon_timeseries,
     plot_timeseries(
-      listed_res = download_neon_data, # this is a named list with all the data
+      all_neon_data = download_neon_data, # this is a named list with all the data
       output_path = here::here("./figs/neon-data-timeseries/")
     )
   )

@@ -8,20 +8,53 @@
 #'library
 #'
 
-aquatics_perm_ent <- function(listed_res, data_path, fig_path) {
-  #' Calculate permutation entropy for the phenology challenge
+aquatics_daily_perm_ent <- function(all_neon_data, data_path, fig_path) {
+  #' Calculate permutation entropy for the acquatics challenge
   #' 
   #' @description Do the various data chopping that should be done to get the 
   #' aquatics 
   #' 
-  #' @param x numeric vector. The time series
-  #' @param dim numeric. Embedding dimension used for the actual calculation.
-  #' Typical values are 3-7. If using this parameter, pass a single numeric 
-  #' value
-  #' @param dim_all boolean. Use all possible embedding dimensions, 3-7? This 
-  #' is for the case of not having a specific embedding dimension you want to 
-  #', use, so the estimate will be generated for each. Default is FALSE
+  #' @param all_neon_data list. A list of all the different datasets from all
+  #' the challenges
+  #' @param data_path character. Where to save the outputs of the computation
+  #' @param fig_path character. Where to save any figures generated
   #' 
-  #' @usage perm_ent_calc(x, dim_all = TRUE)
-  #' @return a numeric vector of length 1 or 5
+  #' @usage aquatics_daily_perm_ent(all_neon_data, data_path, fig_path)
+  #' @return a named list containing all of the variations of the permutation 
+  #' entropy calculations
+  
+  aquatics <- all_neon_data$aquatic_daily
+  
+  # From the forecast challenge webpage 
+  # (https://projects.ecoforecast.org/neon4cast-docs/Aquatics.html), the 
+  # challenge is to produce forecasts of mean daily surface water temperature 
+  # and/or dissolved oxygen, and forecasts of chlorophyll for a subset of those
+  # sites. 
+  #
+  # So we'll divide the data up by the sites of interest, then calculate
+  # the entropy for each of the timeseries as they are relevant to producing 
+  # the forecast itself
+  
+  aquatic_sites <- all_neon_data$site_data %>% 
+    dplyr::filter(aquatics == 1)
+  
+  
+  # get the sites for temperature and/or dissolved oxygen 
+  lakes <- aquatic_sites %>% 
+    dplyr::filter(field_site_subtype == "Lake")
+  river_streams <- aquatic_sites %>% 
+    dplyr::filter(field_site_subtype %in% 
+                    c("Wadeable Stream", "Non-wadeable River"))
+  
+  unique(lakes$field_site_id)
+  unique(river_streams$field_site_id)
+  
+  # do the filtering for a single site
+  for(site in unique(lakes$field_site_id)) {
+    df <- aquatics %>% dplyr::filter(site == site)
+    head(df)
+  }
+  
+  
+  
 }
