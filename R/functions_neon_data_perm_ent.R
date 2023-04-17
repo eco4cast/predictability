@@ -63,6 +63,8 @@ aquatics_daily_perm_ent <- function(all_neon_data, data_path, fig_path) {
     
     if(df$site %in% oxy_temp_sites) {
       # determine which variables this site should get 
+      
+      # pull the two variables of oxygen and temperature for the sites at hand
       df_oxy <- df %>% 
         dplyr::filter(variable == "oxygen")
       oxy_vec <- df_oxy$observation
@@ -71,7 +73,9 @@ aquatics_daily_perm_ent <- function(all_neon_data, data_path, fig_path) {
         dplyr::filter(variable == "tempurature") 
       temp_vec <- df_temp$observation
       
-      oxy_npe <- 
+      # calc for all the 
+      oxy_npe <- perm_ent_calc(oxy_vec, dim_all = TRUE)
+      temp_npe <- perm_ent_calc(temp_vec, dim_all = TRUE)
       
     }
     ggplot(data = df %>% 
