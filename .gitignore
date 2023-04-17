@@ -1,6 +1,4 @@
 .DS_Store
 .Rhistory
-*.pdf
-*.png
 /data/efi-neon-data/*.csv
 .Rproj.user

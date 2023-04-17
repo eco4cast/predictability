@@ -45,6 +45,13 @@ aquatics_daily_perm_ent <- function(all_neon_data, data_path, fig_path) {
   river_streams <- aquatic_sites %>% 
     dplyr::filter(field_site_subtype %in% 
                     c("Wadeable Stream", "Non-wadeable River"))
+  non_wade_river <- aquatic_sites %>% 
+    dplyr::filter(field_site_subtype == "Non-wadeable River")
+  
+  oxy_temp_sites <- c(unique(lakes$field_site_id), 
+                      unique(river_streams$field_site_id))
+  chla_sites <- c(unique(lakes$field_site_id),
+                  unique())
   
   unique(lakes$field_site_id)
   unique(river_streams$field_site_id)
@@ -52,7 +59,9 @@ aquatics_daily_perm_ent <- function(all_neon_data, data_path, fig_path) {
   # do the filtering for a single site
   for(site in unique(lakes$field_site_id)) {
     df <- aquatics %>% dplyr::filter(site == site)
-    head(df)
+    if(df$site %in% )
+    ggplot(data = df) + 
+      geom_point(aes(x = datetime, y = observation))
   }
   
   
