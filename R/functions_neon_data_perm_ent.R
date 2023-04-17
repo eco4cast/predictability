@@ -8,11 +8,11 @@
 #'library
 #'
 
-phenology_perm_ent <- function(listed_res, data_path, fig_path) {
+aquatics_perm_ent <- function(listed_res, data_path, fig_path) {
   #' Calculate permutation entropy for the phenology challenge
   #' 
-  #' @description A simple wrapper for the two other permutation related 
-  #' functions that gets the data ready and returns the npe 
+  #' @description Do the various data chopping that should be done to get the 
+  #' aquatics 
   #' 
   #' @param x numeric vector. The time series
   #' @param dim numeric. Embedding dimension used for the actual calculation.
