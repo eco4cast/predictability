@@ -48,10 +48,11 @@ aquatics_daily_perm_ent <- function(all_neon_data, data_path, fig_path) {
   non_wade_river <- aquatic_sites %>% 
     dplyr::filter(field_site_subtype == "Non-wadeable River")
   
+  # split into the ones that are in the oxy/temp sites and the chla sites
   oxy_temp_sites <- c(unique(lakes$field_site_id), 
                       unique(river_streams$field_site_id))
   chla_sites <- c(unique(lakes$field_site_id),
-                  unique())
+                  unique(non_wade_river$field_site_id))
   
   unique(lakes$field_site_id)
   unique(river_streams$field_site_id)
@@ -59,8 +60,22 @@ aquatics_daily_perm_ent <- function(all_neon_data, data_path, fig_path) {
   # do the filtering for a single site
   for(site in unique(lakes$field_site_id)) {
     df <- aquatics %>% dplyr::filter(site == site)
-    if(df$site %in% )
-    ggplot(data = df) + 
+    
+    if(df$site %in% oxy_temp_sites) {
+      # determine which variables this site should get 
+      df_oxy <- df %>% 
+        dplyr::filter(variable == "oxygen")
+      oxy_vec <- df_oxy$observation
+      
+      df_temp <- df %>% 
+        dplyr::filter(variable == "tempurature") 
+      temp_vec <- df_temp$observation
+      
+      
+      
+    }
+    ggplot(data = df %>% 
+             dplyr::filter(variable == "oxygen")) + 
       geom_point(aes(x = datetime, y = observation))
   }
   
