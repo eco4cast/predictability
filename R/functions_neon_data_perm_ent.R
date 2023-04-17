@@ -8,3 +8,20 @@
 #'library
 #'
 
+phenology_perm_ent <- function(listed_res, data_path, fig_path) {
+  #' Calculate permutation entropy for the phenology challenge
+  #' 
+  #' @description A simple wrapper for the two other permutation related 
+  #' functions that gets the data ready and returns the npe 
+  #' 
+  #' @param x numeric vector. The time series
+  #' @param dim numeric. Embedding dimension used for the actual calculation.
+  #' Typical values are 3-7. If using this parameter, pass a single numeric 
+  #' value
+  #' @param dim_all boolean. Use all possible embedding dimensions, 3-7? This 
+  #' is for the case of not having a specific embedding dimension you want to 
+  #', use, so the estimate will be generated for each. Default is FALSE
+  #' 
+  #' @usage perm_ent_calc(x, dim_all = TRUE)
+  #' @return a numeric vector of length 1 or 5
+}

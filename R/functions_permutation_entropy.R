@@ -60,18 +60,23 @@ ordinal_pattern <- function(x, dim) {
 }
 
 # calculate permuatation entropy ===============================================
-permu_entropy <- function(op) {
+permu_entropy <- function(x, dim) {
   #' Compute permutation entropy of  a given time series
   #' 
   #' @description This function takes the ordinal pattern of a timeseries as 
   #' returned from ordinal_pattern(), and gives the permutation entropy measure
   #' 
-  #' @param op numeric vector. Ordinal pattern vector
+  #' @param x numeric vector. The time series
+  #' @param dim numeric. Embedding dimension used for the actual calculation.
+  #' Typical values are 3-7.
   #' 
-  #' @usage permu_entropy(op)
+  #' @usage permu_entropy(x, dim)
   #' @return normalized permutation entropy
   #' @references This function code comes from Srinivasan Radhakrishnan and 
   #' can be found here: https://tinyurl.com/ynmkkfaf
+  
+  # calculate ordinal pattern
+  op <- ordinal_pattern(x, dim)
   
   # type checks
   stopifnot(is.numeric(op) & length(op) > 1)
@@ -83,4 +88,46 @@ permu_entropy <- function(op) {
   # Normalized permutation entropy
   npe <- entropy::entropy(op) / entropy_max
   return(npe)
+}
+
+# get both things from the timeseries ==========================================
+perm_ent_calc <- function(x, dim = NULL, dim_all = FALSE) {
+  #' Data wrapper function
+  #' 
+  #' @description A simple wrapper for the two other permutation related 
+  #' functions that gets the data ready and returns the npe 
+  #' 
+  #' @param x numeric vector. The time series
+  #' @param dim numeric. Embedding dimension used for the actual calculation.
+  #' Typical values are 3-7. If using this parameter, pass a single numeric 
+  #' value
+  #' @param dim_all boolean. Use all possible embedding dimensions, 3-7? This 
+  #' is for the case of not having a specific embedding dimension you want to 
+  #', use, so the estimate will be generated for each. Default is FALSE
+  #' 
+  #' @usage perm_ent_calc(x, dim_all = TRUE)
+  #' @return a numeric vector of length 1 or 5
+  
+  # check if all embedding dimensions should be used 
+  if(dim_all == FALSE) {
+    
+    # make sure dim is passed
+    if(!is.numeric(dim)) stop(paste0("ERROR - dim not found, you must pass an ",
+                                     "embedding dimension if dim_all = FALSE"))
+    
+    # calculate the op 
+    npe <- permu_entropy(x, dim)
+    
+    return(npe)
+  }
+  
+  # if all the embedding dimensions are to be used, then do that this way 
+  npe_vec <- vector(mode = "numeric", length = 5)
+  all_dims <- c(3:7)
+  
+  # use an mapply (recycles x here) to get the values
+  npe_vec <- mapply(permu_entropy, list(x), all_dims)
+  
+  return(npe_vec)
+  
 }

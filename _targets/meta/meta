@@ -1,5 +1,12 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
+download_neon_data|stem|0bc63e8c712c682d|2366ac69bde605f9|65b7a653305cb9b4|-963001987||t19464.7582974099s|b5cdb60c7d0fca86|72257956|rds|local|vector|||155.711||
+get_data_csv|function|f55fbb93cbb1e4ef|||||||||||||||
 neon_data|stem|2a08665684c1ee1c|16368f4784ab6ea1|572afeb52f6633a9|100700962||t19462.7552419846s|51e1a0c12d7ae2b2|72176816|rds|local|vector|||147.34||
 ordinal_pattern|function|020360b1ad2746ee|||||||||||||||
-permu_entropy|function|58c59b4645dd2a10|||||||||||||||
-pull_data|function|3b94c47ad2fe06d3|||||||||||||||
+perm_ent_calc|function|7676e333226f2532|||||||||||||||
+permu_entropy|function|e017af783cc89d4a|||||||||||||||
+plot_neon_timeseries|stem|5e9c3ae5adec25c9|b4a52739b346ea18|cf4ac059b1bc39ba|1250783951||t19464.7611368927s|758d7d51407f572d|117|rds|local|vector|||117.396|Removed 54 rows containing missing values geom_point.. Removed 54 rows containing missing values geom_point.. Removed 59 rows containing missing values geom_point.. Removed 59 rows containing missing values geom_point.. Removed 15 rows containing missing values geom_point.. Removed 10 rows containing missing values geom_point.. Removed 15 rows containing missing values geom_point.. Removed 10 rows containing missing values geom_point.|
+plot_timeseries|function|c0b0b8c526ebb106|||||||||||||||
+pull_data|function|d851190db7969d2c|||||||||||||||
+theme_base|function|9ac3d8553609006e|||||||||||||||
+theme_foundation|function|148d518bfb6d0e7b|||||||||||||||

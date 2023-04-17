@@ -265,12 +265,25 @@ ggplot(data = ticks) +
   ) 
 
 
+# calculate permutation entropy for the timeseries =============================
 
+terr_daily <- listed_res$terrestrial_daily
 
+str(terr_daily)
 
+le <- terr_daily %>% 
+  dplyr::filter(variable == "le")
+nee <- terr_daily %>% 
+  dplyr::filter(variable == "nee")
 
-
-
+# look at each site too
+unique(le$site_id)
+x <- le$observation
+dim <- 3
+permu_entropy(x, 3)
+all_dims <- c(3:7)
+x_s <- list(x)
+mapply(permu_entropy, list(x), all_dims)
 
 
 

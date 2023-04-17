@@ -17,22 +17,31 @@ library(tarchetypes)
 library(here)
 
 # read in function files 
+source(here::here("./R/functions_global.R"))
 source(here::here("./R/functions_neon_data.R"))
 source(here::here("./R/functions_permutation_entropy.R"))
 
 # set the packages
 targets::tar_option_set(
-  packages = c("readr", "here", "entropy", "magrittr", "dplyr", "patchwork"),
+  packages = c("readr", "here", "entropy", "magrittr", "dplyr", "ggplot2",
+               "tidyr", "ggtext", "patchwork"),
   error = "stop"
 )
 
 list(
   # data related targets =======================================================
   tar_target(
-    neon_data,
+    download_neon_data,
     pull_data(
       # write controls if copies of the files should be written to the local
       write = FALSE
       ) 
+  ),
+  tar_target(
+    plot_neon_timeseries,
+    plot_timeseries(
+      listed_res = download_neon_data, # this is a named list with all the data
+      output_path = here::here("./figs/neon-data-timeseries/")
+    )
   )
 )

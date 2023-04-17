@@ -105,7 +105,7 @@ pull_data <- function(write = FALSE) {
 }
 
 # plot all timeseries ==========================================================
-plot_neon_timeseries <- function(listed_res, output_path) {
+plot_timeseries <- function(listed_res, output_path) {
   #' Plot all useful timeseries from the NEON forecasting challenge
   #' 
   #' @description For simple visualization purposes, plot the different 
@@ -412,6 +412,4 @@ plot_neon_timeseries <- function(listed_res, output_path) {
     paste0(output_path, "ticks.png"),
     p_ticks
   )
-  
-
 }
