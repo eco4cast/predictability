@@ -8,7 +8,7 @@
 #'library
 #'
 
-aquatics_daily_perm_ent <- function(all_neon_data, data_path, fig_path) {
+aquatics_daily_perm_ent <- function(all_neon_data, output_path, fig_path) {
   #' Calculate permutation entropy for the acquatics challenge
   #' 
   #' @description Do the various data chopping that should be done to get the 
@@ -16,7 +16,7 @@ aquatics_daily_perm_ent <- function(all_neon_data, data_path, fig_path) {
   #' 
   #' @param all_neon_data list. A list of all the different datasets from all
   #' the challenges
-  #' @param data_path character. Where to save the outputs of the computation
+  #' @param output_path character. Where to save the outputs of the computation
   #' @param fig_path character. Where to save any figures generated
   #' 
   #' @usage aquatics_daily_perm_ent(all_neon_data, data_path, fig_path)
@@ -48,11 +48,9 @@ aquatics_daily_perm_ent <- function(all_neon_data, data_path, fig_path) {
   non_wade_river <- aquatic_sites %>% 
     dplyr::filter(field_site_subtype == "Non-wadeable River")
   
-  # split into the ones that are in the oxy/temp sites and the chla sites
-  oxy_temp_sites <- c(unique(lakes$field_site_id), 
-                      unique(river_streams$field_site_id))
-  chla_sites <- c(unique(lakes$field_site_id),
-                  unique(non_wade_river$field_site_id))
+  # so if the river is non-wadable, or if the site is a lake, then it's all 
+  # three - if it's the others, then it's just temp and oxygen
+  all_three <- 
   
   unique(lakes$field_site_id)
   unique(river_streams$field_site_id)
@@ -61,21 +59,32 @@ aquatics_daily_perm_ent <- function(all_neon_data, data_path, fig_path) {
   for(site in unique(lakes$field_site_id)) {
     df <- aquatics %>% dplyr::filter(site == site)
     
-    if(df$site %in% oxy_temp_sites) {
-      # determine which variables this site should get 
-      
+    if(site %in% non_wade_river | site %in% lakes) { # if true, calc all three
+
       # pull the two variables of oxygen and temperature for the sites at hand
       df_oxy <- df %>% 
         dplyr::filter(variable == "oxygen")
       oxy_vec <- df_oxy$observation
       
       df_temp <- df %>% 
-        dplyr::filter(variable == "tempurature") 
+        dplyr::filter(variable == "temperature") 
       temp_vec <- df_temp$observation
+      
+      df_chla <- df %>% 
+        dplyr::filter(variable == "chla")
+      chla_vec <- df_chla$observation
       
       # calc for all the 
       oxy_npe <- perm_ent_calc(oxy_vec, dim_all = TRUE)
       temp_npe <- perm_ent_calc(temp_vec, dim_all = TRUE)
+      chla_npe <- perm_ent_calc(chla_vec, dim_all = TRUE)
+      
+      perm_ent <- list(oxygen = oxy_npe, 
+                       temperature = temp_npe,
+                       chla = chla_npe)
+      
+      # write out the rds of the file
+      writeRDS(perm_ent, paste0())
       
     }
     ggplot(data = df %>% 
@@ -86,3 +95,12 @@ aquatics_daily_perm_ent <- function(all_neon_data, data_path, fig_path) {
   
   
 }
+
+What does the shift in a process mean in this sort of approach? like how 
+can we take that into account here????
+
+Go back to the Pennekamp paper and see if they account for anything like a 
+cyclic process and how thats incorporated to the information theory piece
+
+
+  
