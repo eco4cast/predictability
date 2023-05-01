@@ -1,0 +1,2 @@
+linters: linters_with_defaults(no_tab_linter = NULL, trailing_blank_lines_linter = NULL, object_name_linter = NULL, trailing_whitespace_linter = NULL, commented_code_linter = NULL, object_usage_linter = NULL)
+encoding: "UTF-8"
