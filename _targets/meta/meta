@@ -1,12 +1,18 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-download_neon_data|stem|57f81ced3be94b85|16368f4784ab6ea1|d4c2f2b6871f8645|-963001987||t19464.8236617034s|2dcfee5a3f3da7f6|72279443|rds|local|vector|||106.894||
+autocorr_plot|function|a69261aab4f3e285|||||||||||||||
+download_neon_data|stem|e407262ca814d05e|16368f4784ab6ea1|d4c2f2b6871f8645|-963001987||t19684.1766061684s|50761153d6db7520|44790659|rds|local|vector|||19.855||
+downloadNeonData|stem|663ee5f93c00b416|2366ac69bde605f9|d4c2f2b6871f8645|-1416275451||t19686.201338978s|231762a138b3d06c|44818005|rds|local|vector|||14.725||
+get_clim|function|94d464998408f909|||||||||||||||
 get_data_csv|function|f55fbb93cbb1e4ef|||||||||||||||
 neon_data|stem|2a08665684c1ee1c|16368f4784ab6ea1|572afeb52f6633a9|100700962||t19462.7552419846s|51e1a0c12d7ae2b2|72176816|rds|local|vector|||147.34||
 ordinal_pattern|function|020360b1ad2746ee|||||||||||||||
 perm_ent_calc|function|7676e333226f2532|||||||||||||||
 permu_entropy|function|e017af783cc89d4a|||||||||||||||
 plot_neon_timeseries|stem|5e9c3ae5adec25c9|b4a52739b346ea18|cf4ac059b1bc39ba|1250783951||t19464.7611368927s|758d7d51407f572d|117|rds|local|vector|||117.396|Removed 54 rows containing missing values geom_point.. Removed 54 rows containing missing values geom_point.. Removed 59 rows containing missing values geom_point.. Removed 59 rows containing missing values geom_point.. Removed 15 rows containing missing values geom_point.. Removed 10 rows containing missing values geom_point.. Removed 15 rows containing missing values geom_point.. Removed 10 rows containing missing values geom_point.|
-plot_timeseries|function|e923ef3de0d6366d|||||||||||||||
+plot_timeseries|function|cf70e3c137ba9ca1|||||||||||||||
 pull_data|function|84412c3c358fe6d1|||||||||||||||
-theme_base|function|9ac3d8553609006e|||||||||||||||
-theme_foundation|function|148d518bfb6d0e7b|||||||||||||||
+std_err|function|3b26304b718e3898|||||||||||||||
+theme_base|function|5b5009e4f59b1999|||||||||||||||
+theme_foundation|function|2c7d8bbaf52068a0|||||||||||||||
+ticks_autocor|function|0f14d6a10e54a648|||||||||||||||
+ticksAutocorr|stem|0b321f264012cd1c|2d492fe30b046ae6|e4dd0baf68a71cb5|1033450081||t19686.2539173761s|dff9495c51b724c1|77|rds|local|vector|||3.271||
