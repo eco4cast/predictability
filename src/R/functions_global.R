@@ -54,9 +54,6 @@ theme_foundation <- function(base_size=12, base_family="") {
               text = element_text(colour = "black"))
 }
 
-
-
-
 #' Theme Base
 #'
 #' Theme similar to the default settings of the \sQuote{base} R graphics.
@@ -93,18 +90,30 @@ theme_base <- function(base_size = 16, base_family = "") {
   # TODO: get margins right
 }
 
-# get_data =====================================================================
+#' Takes in the file and reads it for use
+#' 
+#' @description Generic function to interface with the file targets, to read 
+#' them in and make them available for analysis
+#' 
+#' @param file character. The file path in the target
+#'  
+#' @usage get_data_csv(here("./data/wild-lice/file.csv"))
+#' @return Dataframe 
+#' 
 get_data_csv = function(file) {
-  #' Takes in the file and reads it for use
-  #' 
-  #' @description Generic function to interface with the file targets, to read 
-  #' them in and make them available for analysis
-  #' 
-  #' @param file character. The file path in the target
-  #'  
-  #' @usage get_data_csv(here("./data/wild-lice/file.csv"))
-  #' @return Dataframe 
-  #' 
-  
+
   readr::read_csv(file, show_col_types = FALSE) 
+}
+
+#' Calculate standard error
+#' 
+#' @description Easy add on function to calculate standard error 
+#' 
+#' @param x vector of values
+#'  
+#' @usage std_err(df, na.rm = TRUE)
+#' @return numeric value
+#'
+std_err <- function(x) {
+  return(sd(x, na.rm = TRUE) / sqrt(length(x)))
 }
