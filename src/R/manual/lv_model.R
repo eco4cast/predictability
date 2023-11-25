@@ -3,6 +3,8 @@
 library(tidyverse)
 library(deSolve)
 library(FME)
+library(here)
+source(here("./R/functions_global.R"))
 
 # the models for reference: 
 # dx/dt = alpha*x - beta*x*y
@@ -74,3 +76,4 @@ lv_results %>%
        subtitle = paste(names(pars), pars, sep = " = ", collapse = "; "),
        x = "Time", y = "Population density") +
   theme_base()
+

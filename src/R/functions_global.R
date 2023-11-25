@@ -38,7 +38,7 @@
 #' @export
 #' @importFrom ggplot2 theme_grey
 theme_foundation <- function(base_size=12, base_family="") {
-  thm <- theme_grey(base_size = base_size, base_family = base_family)
+  thm <- ggplot2::theme_grey(base_size = base_size, base_family = base_family)
   for (i in names(thm)) {
     if ("colour" %in% names(thm[[i]])) {
       thm[[i]]["colour"] <- list(NULL)
@@ -47,7 +47,7 @@ theme_foundation <- function(base_size=12, base_family="") {
       thm[[i]]["fill"] <- list(NULL)
     }
   }
-  thm + theme(panel.border = element_rect(fill = NA),
+  thm + ggplot2::theme(panel.border = element_rect(fill = NA),
               legend.background = element_rect(colour = NA),
               line = element_line(colour = "black"),
               rect = element_rect(fill = "white", colour = "black"),
@@ -66,8 +66,8 @@ theme_foundation <- function(base_size=12, base_family="") {
 #' @family themes
 #' @example inst/examples/ex-theme_base.R
 theme_base <- function(base_size = 16, base_family = "") {
-  theme_foundation() +
-    theme(line = element_line(colour = "black",
+  ggthemes::theme_foundation() +
+    ggplot2::theme(line = element_line(colour = "black",
                               lineend = "round",
                               linetype = "solid"),
           rect = element_rect(fill = "white",
