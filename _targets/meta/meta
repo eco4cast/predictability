@@ -1,7 +1,7 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
 autocorr_plot|function|a69261aab4f3e285|||||||||||||||
 download_neon_data|stem|e407262ca814d05e|16368f4784ab6ea1|d4c2f2b6871f8645|-963001987||t19684.1766061684s|50761153d6db7520|44790659|rds|local|vector|||19.855||
-downloadNeonData|stem|663ee5f93c00b416|2366ac69bde605f9|d4c2f2b6871f8645|-1416275451||t19686.201338978s|231762a138b3d06c|44818005|rds|local|vector|||14.725||
+downloadNeonData|stem|2cdd80b254842e62|16368f4784ab6ea1|d4c2f2b6871f8645|337120435||t19706.1671803186s|f4a5cf6958bb2548|45179097|rds|local|vector|||15.572||
 get_clim|function|94d464998408f909|||||||||||||||
 get_data_csv|function|f55fbb93cbb1e4ef|||||||||||||||
 neon_data|stem|2a08665684c1ee1c|16368f4784ab6ea1|572afeb52f6633a9|100700962||t19462.7552419846s|51e1a0c12d7ae2b2|72176816|rds|local|vector|||147.34||
@@ -15,4 +15,4 @@ std_err|function|3b26304b718e3898|||||||||||||||
 theme_base|function|5b5009e4f59b1999|||||||||||||||
 theme_foundation|function|2c7d8bbaf52068a0|||||||||||||||
 ticks_autocor|function|0f14d6a10e54a648|||||||||||||||
-ticksAutocorr|stem|0b321f264012cd1c|2d492fe30b046ae6|e4dd0baf68a71cb5|1033450081||t19686.2539173761s|dff9495c51b724c1|77|rds|local|vector|||3.271||
+ticksAutocorr|stem|64ac8482c094905d|2d492fe30b046ae6|e4dd0baf68a71cb5|-939050472||t19706.1734589065s|8fcb0666863d3c08|92|rds|local|vector|||1.219||

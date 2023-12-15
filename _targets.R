@@ -27,7 +27,7 @@ source(here::here("./src/R/functions_autocorr.R"))
 targets::tar_option_set(
   packages = c(
     "readr", "here", "entropy", "magrittr", "dplyr", "ggplot2",
-    "tidyr", "ggtext", "patchwork"
+    "tidyr", "ggtext", "patchwork", "ggthemes"
   ),
   error = "stop"
 )
@@ -38,7 +38,7 @@ list(
     downloadNeonData,
     pull_data(
       # write controls if copies of the files should be written to the local
-      write = FALSE
+      write = TRUE
     )
   ),
   # autocorrelation plots ======================================================
