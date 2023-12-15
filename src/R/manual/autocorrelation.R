@@ -1,3 +1,10 @@
+library(magrittr)
+library(ggplot2)
+
+source(here::here("./src/R/functions_global.R"))
+
+# ticks ========================================================================
+
 ticks <- readr::read_csv(here::here("./data/efi-neon-data/ticks.csv"))
 
 site = "BLAN"
@@ -28,3 +35,23 @@ png(
 )
 pacf(obs,pl=TRUE)
 dev.off()
+
+
+# terrestrial ==================================================================
+
+unique(terr_day$site_id)
+site <- "BART"
+
+terr_day_site <- terr_day[which(terr_day$site_id == site), ]
+
+ggplot() + 
+  geom_line(data = terr_day_site,
+                     aes(x = datetime, y = observation, colour = variable)) + 
+  geom_point(data = terr_day_site,
+                      aes(x = datetime, y = observation, colour = variable),
+                      size = 2, alpha = 0.2) +
+  theme_base() + 
+  labs(y = "Latent heat flux / Net Ecosystem Exchange", x = "Time") 
+
+obs_le <- terr_day_site$observation[which(terr_day_site$variable == "le")]
+obs_nee <- terr_day_site$observation[which(terr_day_site$variable == "nee")]
