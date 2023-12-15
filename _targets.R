@@ -44,7 +44,10 @@ list(
   # autocorrelation plots ======================================================
   #' For each data object we're working with, we want a plot of the partial 
   #' and full autocorrelation for each location of each data object
-  tar_target(ticksAutocorr, ticks_autocor(get_data_csv(
-    here::here("./data/efi-neon-data/ticks.csv")
+  tar_target(ticksAutocorr, ticks_autocor(
+    get_data_csv(here::here("./data/efi-neon-data/ticks.csv")
+  ))),
+  tar_target(terrDailyAutocorr, terr_day_autocor(get_data_csv(
+    here::here("./data/efi-neon-data/terrestrial-daily.csv")
   )))
 )

@@ -38,7 +38,8 @@ dev.off()
 
 
 # terrestrial ==================================================================
-
+terr_day <- readr::read_csv(
+  here::here("./data/efi-neon-data/terrestrial-daily.csv"))
 unique(terr_day$site_id)
 site <- "BART"
 
@@ -55,3 +56,18 @@ ggplot() +
 
 obs_le <- terr_day_site$observation[which(terr_day_site$variable == "le")]
 obs_nee <- terr_day_site$observation[which(terr_day_site$variable == "nee")]
+
+png(
+  paste0(here::here("./figs/neon-autocorrelation-plots/"),
+         "ticks-", site, ".png"),
+)
+acf(obs,pl=TRUE)
+
+png(
+  paste0(here::here("./figs/neon-autocorrelation-plots/"),
+         "partial-ticks-", site, ".png"),
+)
+pacf(obs,pl=TRUE)
+dev.off()
+
+

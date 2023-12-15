@@ -21,17 +21,17 @@
 #' since most will have a differnt set of sites for each dataframe
 #' 
 #' @return none. instead of return, two plots are written to file
-autocorr_plot <- function(obs, data_name, site=NULL) {
+autocorr_plot <- function(obs, data_name, sub_folder, site=NULL) {
   
   if(!is.null(site)) {
     png(
-      paste0(here::here("./figs/neon-autocorrelation-plots/"),
+      paste0(here::here("./figs/neon-autocorrelation-plots/", sub_folder, "/"),
               "acf-", data_name, "-", site, ".png"),
     )
     acf(obs,pl=TRUE)
     
     png(
-      paste0(here::here("./figs/neon-autocorrelation-plots/"),
+      paste0(here::here("./figs/neon-autocorrelation-plots/", sub_folder, "/"),
              "partial-", data_name, "-", site, ".png"),
     )
     pacf(obs,pl=TRUE)
@@ -39,17 +39,21 @@ autocorr_plot <- function(obs, data_name, site=NULL) {
   }
   
   png(
-    paste0(here::here("./figs/neon-autocorrelation-plots/"),
+    paste0(here::here("./figs/neon-autocorrelation-plots/", sub_folder, "/"),
            data_name, ".png"),
   )
   acf(obs,pl=TRUE)
   
   png(
-    paste0(here::here("./figs/neon-autocorrelation-plots/"),
+    paste0(here::here("./figs/neon-autocorrelation-plots/", sub_folder, "/"),
            "partial-", data_name, ".png"),
   )
   pacf(obs,pl=TRUE)
-  dev.off()
+  
+  # having weird problem with devices so trying to fix that here
+  for (i in dev.list()[1]:dev.list()[length(dev.list())]) {
+    dev.off()
+  }
 }
 
 #' Get the CI of a ACF function
@@ -124,7 +128,7 @@ ticks_autocor <- function(ticks) {
     
     # iterate and plot the outputs
     site_num <- site_num + 1
-    autocorr_plot(obs, "ticks", site = site)
+    autocorr_plot(obs, "ticks", site = site, sub_folder = "ticks-by-site")
   }
   
   # now take the averages and plot those
@@ -180,116 +184,91 @@ terr_day_autocor <- function(terr_day) {
   
   # use some vectors to store the calculations across all sites so we can get 
   # an average across all sites
-  all_sites_pacf <- vector(mode = "list", length = 
-                             length(unique(terr_day$site_id)))
-  all_sites_acf <- vector(mode = "list", length = 
-                            length(unique(terr_day$site_id)))
-  all_sites_pacf_ci <- vector(mode = "list", length = 
-                                length(unique(terr_day$site_id)))
-  all_sites_acf_ci <- vector(mode = "list", length = 
-                               length(unique(terr_day$site_id)))
-  site_num <- 1
-  
-  # go through each site and get the values then plot them
-  for(site in unique(ticks$site_id)) {
+  for(ob_type in unique(terr_day$variable)) {
     
-    ticks_site <- ticks[which(ticks$site_id == site), ]
+    terr_day_ob <- terr_day[
+      which(terr_day$variable == ob_type), 
+    ]
     
-    # site by site plot
-    ticks_site_plot <- ggplot2::ggplot(data = ticks_site) + 
-      ggplot2::geom_line(ggplot2::aes(x = datetime, y = observation)) + 
-      ggplot2::geom_point(ggplot2::aes(x = datetime, y = observation),
-                          size = 2, fill = "red3", shape = 21) +
-      theme_base() + 
-      labs(y = "# of Ticks", x = "Time")
-    ggsave(paste0(here::here("./figs/neon-data-timeseries/ticks-by-site/"),
-                  "ticks-", site, ".png"),
-           ticks_site_plot)
+    all_sites_pacf <- vector(mode = "list", length = 
+                               length(unique(terr_day_ob$site_id)))
+    all_sites_acf <- vector(mode = "list", length = 
+                              length(unique(terr_day_ob$site_id)))
+    all_sites_pacf_ci <- vector(mode = "list", length = 
+                                  length(unique(terr_day_ob$site_id)))
+    all_sites_acf_ci <- vector(mode = "list", length = 
+                                 length(unique(terr_day_ob$site_id)))
+    site_num <- 1
     
-    # now take the observations and do the plotting function to the get the vals
-    obs <- ticks_site$observation
-    all_sites_pacf[[site_num]] <- pacf(obs, pl = FALSE)$acf[1:18]
-    all_sites_pacf_ci[[site_num]] <- get_clim(pacf(obs, pl = FALSE))
-    all_sites_acf[[site_num]] <- acf(obs, pl = FALSE)$acf[1:18]
-    all_sites_acf_ci[[site_num]] <- get_clim(acf(obs, pl = FALSE))
-    
+    # go through each site and get the values then plot them
+    for(site in unique(terr_day_ob$site_id)) {
+      
+      terr_day_site <- terr_day_ob[which(terr_day_ob$site_id == site), ]
+      
+      # site by site plot
+      terr_day_site_plot <- ggplot2::ggplot(data = terr_day_site) + 
+        ggplot2::geom_line(ggplot2::aes(x = datetime, y = observation)) + 
+        ggplot2::geom_point(ggplot2::aes(x = datetime, y = observation),
+                            size = 2, fill = "red3", shape = 21) +
+        theme_base() + 
+        labs(y = "# of Ticks", x = "Time")
+      ggsave(paste0(
+        here::here("./figs/neon-data-timeseries/terr-daily-by-site/"),
+                    "terr-daily-", ob_type, "-", site, ".png"),
+             terr_day_site_plot)
+      
+      obs<-terr_day_site$observation[which(terr_day_site$variable == ob_type)]
+      
+      all_sites_pacf[[site_num]] <- pacf(obs, pl = FALSE)$acf[1:18]
+      all_sites_pacf_ci[[site_num]] <- get_clim(pacf(obs, pl = FALSE))
+      all_sites_acf[[site_num]] <- acf(obs, pl = FALSE)$acf[1:18]
+      all_sites_acf_ci[[site_num]] <- get_clim(acf(obs, pl = FALSE))
+      
+      #plot the outputs
+      autocorr_plot(obs, ob_type, site = site, 
+                    sub_folder = "terr-daily-by-site")
+      }
     # iterate and plot the outputs
     site_num <- site_num + 1
-    autocorr_plot(obs, "ticks", site = site)
+    
+    # now take the averages and plot those
+    mean_pacf <- colMeans(do.call(rbind, all_sites_pacf), na.rm = TRUE)
+    ci <- 1.96*std_err(mean_pacf)
+    lags <- c(1:18)
+    
+    # plot the partial averages
+    png(
+      paste0(
+        here::here(
+          "./figs/neon-autocorrelation-plots/mean-autocorrelation/"),
+        "pacf-mean-terr-", ob_type , ".png"))
+    plot(x = lags, y = mean_pacf, type = "h", 
+         ylim = c(-(max(mean_pacf)+0.5*max(mean_pacf)), 
+                  (max(mean_pacf)+0.5*max(mean_pacf))),
+         xlab = "Lags", ylab = "Mean PACF")
+    abline(h = 0, col = "grey80", lty = 2)
+    abline(h = ci, col = "red2", lty = 2)
+    abline(h = -ci, col = "red2", lty = 2)
+    dev.off()
+    
+    # plot the regular averages
+    png(
+      paste0(
+        here::here(
+          "./figs/neon-autocorrelation-plots/mean-autocorrelation/"),
+        "acf-mean-mean-terr-", ob_type, ".png"))
+    mean_acf <- colMeans(do.call(rbind, all_sites_acf), na.rm = TRUE)
+    ci <- 1.96*std_err(mean_acf)
+    lags <- c(1:18)
+    
+    plot(x = lags, y = mean_acf, type = "h", 
+         ylim = c(-(max(mean_acf)+0.5*max(mean_acf)), 
+                  (max(mean_acf)+0.5*max(mean_acf))),
+         xlab = "Lags", ylab = "Mean PACF")
+    abline(h = 0, col = "grey80", lty = 2)
+    abline(h = ci, col = "red2", lty = 2)
+    abline(h = -ci, col = "red2", lty = 2)
+    dev.off()
   }
-  
-  # now take the averages and plot those
-  mean_pacf <- colMeans(do.call(rbind, all_sites_pacf), na.rm = TRUE)
-  ci <- 1.96*std_err(mean_pacf)
-  lags <- c(1:18)
-  
-  # plot the partial averages
-  png(
-    paste0(
-      here::here(
-        "./figs/neon-autocorrelation-plots/mean-autocorrelation/"),
-      "pacf-mean-ticks", ".png"))
-  plot(x = lags, y = mean_pacf, type = "h", 
-       ylim = c(-(max(mean_pacf)+0.5*max(mean_pacf)), 
-                (max(mean_pacf)+0.5*max(mean_pacf))),
-       xlab = "Lags", ylab = "Mean PACF")
-  abline(h = 0, col = "grey80", lty = 2)
-  abline(h = ci, col = "red2", lty = 2)
-  abline(h = -ci, col = "red2", lty = 2)
-  dev.off()
-  
-  # plot the regular averages
-  png(
-    paste0(
-      here::here(
-        "./figs/neon-autocorrelation-plots/mean-autocorrelation/"),
-      "acf-mean-ticks", ".png"))
-  mean_acf <- colMeans(do.call(rbind, all_sites_acf), na.rm = TRUE)
-  ci <- 1.96*std_err(mean_acf)
-  lags <- c(1:18)
-  
-  plot(x = lags, y = mean_acf, type = "h", 
-       ylim = c(-(max(mean_acf)+0.5*max(mean_acf)), 
-                (max(mean_acf)+0.5*max(mean_acf))),
-       xlab = "Lags", ylab = "Mean PACF")
-  abline(h = 0, col = "grey80", lty = 2)
-  abline(h = ci, col = "red2", lty = 2)
-  abline(h = -ci, col = "red2", lty = 2)
-  dev.off()
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

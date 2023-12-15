@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-autocorr_plot|function|a69261aab4f3e285|||||||||||||||
+autocorr_plot|function|1d76a71fbf09ef0f|||||||||||||||
 download_neon_data|stem|e407262ca814d05e|16368f4784ab6ea1|d4c2f2b6871f8645|-963001987||t19684.1766061684s|50761153d6db7520|44790659|rds|local|vector|||19.855||
 downloadNeonData|stem|2cdd80b254842e62|16368f4784ab6ea1|d4c2f2b6871f8645|337120435||t19706.1671803186s|f4a5cf6958bb2548|45179097|rds|local|vector|||15.572||
 get_clim|function|94d464998408f909|||||||||||||||
@@ -12,7 +12,9 @@ plot_neon_timeseries|stem|5e9c3ae5adec25c9|b4a52739b346ea18|cf4ac059b1bc39ba|125
 plot_timeseries|function|cf70e3c137ba9ca1|||||||||||||||
 pull_data|function|84412c3c358fe6d1|||||||||||||||
 std_err|function|3b26304b718e3898|||||||||||||||
+terr_day_autocor|function|2408dd30ca481235|||||||||||||||
+terrDailyAutocorr|stem|17656ca132f3e9f7|82a65fccae892d84|67d217ea88e036ab|1594215396||t19706.2439256039s|a1c456b03adbfbf8|44|rds|local|vector|||9.937||
 theme_base|function|5b5009e4f59b1999|||||||||||||||
 theme_foundation|function|2c7d8bbaf52068a0|||||||||||||||
-ticks_autocor|function|0f14d6a10e54a648|||||||||||||||
-ticksAutocorr|stem|64ac8482c094905d|2d492fe30b046ae6|e4dd0baf68a71cb5|-939050472||t19706.1734589065s|8fcb0666863d3c08|92|rds|local|vector|||1.219||
+ticks_autocor|function|cf5c938098bc7c60|||||||||||||||
+ticksAutocorr|stem|460000d6dd5d780f|2d492fe30b046ae6|e690c56f809e95ca|-939050472||t19706.243935015s|40b3a10246f0095b|83|rds|local|vector|||0.811||
