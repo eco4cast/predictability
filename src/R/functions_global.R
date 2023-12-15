@@ -47,11 +47,11 @@ theme_foundation <- function(base_size=12, base_family="") {
       thm[[i]]["fill"] <- list(NULL)
     }
   }
-  thm + ggplot2::theme(panel.border = element_rect(fill = NA),
-              legend.background = element_rect(colour = NA),
-              line = element_line(colour = "black"),
-              rect = element_rect(fill = "white", colour = "black"),
-              text = element_text(colour = "black"))
+  thm + ggplot2::theme(panel.border = ggplot2::element_rect(fill = NA),
+              legend.background = ggplot2::element_rect(colour = NA),
+              line = ggplot2::element_line(colour = "black"),
+              rect = ggplot2::element_rect(fill = "white", colour = "black"),
+              text = ggplot2::element_text(colour = "black"))
 }
 
 #' Theme Base
@@ -64,28 +64,29 @@ theme_foundation <- function(base_size=12, base_family="") {
 #' @example inst/examples/ex-theme_base.R
 theme_base <- function(base_size = 16, base_family = "") {
   ggthemes::theme_foundation() +
-    ggplot2::theme(line = element_line(colour = "black",
+    ggplot2::theme(line = ggplot2::element_line(colour = "black",
                               lineend = "round",
                               linetype = "solid"),
-          rect = element_rect(fill = "white",
+          rect = ggplot2::element_rect(fill = "white",
                               colour = "black",
                               linetype = "solid"),
-          text = element_text(colour = "black",
+          text = ggplot2::element_text(colour = "black",
                               face = "plain",
                               family = base_family,
                               size = base_size,
                               vjust = 0.5,
                               hjust = 0.5,
                               lineheight = 1),
-          panel.grid = element_blank(),
-          strip.background = element_rect(colour = NA),
-          legend.key = element_rect(colour = NA),
-          title = element_text(size = rel(1)),
-          plot.title = element_text(size = rel(1.2), face = "bold"),
-          strip.text = element_text(),
-          axis.ticks.length = unit(0.5, "lines"),
+          panel.grid = ggplot2::element_blank(),
+          strip.background = ggplot2::element_rect(colour = NA),
+          legend.key = ggplot2::element_rect(colour = NA),
+          title = ggplot2::element_text(size = ggplot2::rel(1)),
+          plot.title = ggplot2::element_text(
+            size = ggplot2::rel(1.2), face = "bold"),
+          strip.text = ggplot2::element_text(),
+          axis.ticks.length = ggplot2::unit(0.5, "lines"),
           # add my addition here
-          plot.background = element_rect(colour = NA)
+          plot.background = ggplot2::element_rect(colour = NA)
     )
   # TODO: get margins right
 }

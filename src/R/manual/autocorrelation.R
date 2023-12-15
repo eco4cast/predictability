@@ -70,4 +70,7 @@ png(
 pacf(obs,pl=TRUE)
 dev.off()
 
+# aquatic daily ================================================================
+aquat_day <- readr::read_csv(
+  here::here("./data/efi-neon-data/aquatic-daily.csv"))
 

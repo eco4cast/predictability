@@ -44,10 +44,28 @@ list(
   # autocorrelation plots ======================================================
   #' For each data object we're working with, we want a plot of the partial 
   #' and full autocorrelation for each location of each data object
-  tar_target(ticksAutocorr, ticks_autocor(
-    get_data_csv(here::here("./data/efi-neon-data/ticks.csv")
-  ))),
-  tar_target(terrDailyAutocorr, terr_day_autocor(get_data_csv(
-    here::here("./data/efi-neon-data/terrestrial-daily.csv")
-  )))
+  tar_target(ticksAutocorr, autocorr(
+    data = get_data_csv(here::here("./data/efi-neon-data/ticks.csv")),
+    subfolder = "ticks-by-site",
+    datatype = "ticks")),
+  tar_target(terrDailyAutocorr, autocorr(
+    data = get_data_csv(
+      here::here("./data/efi-neon-data/terrestrial-daily.csv")),
+    subfolder = "terr-daily-by-site",
+    datatype = "terr-daily")),
+  tar_target(terr30minsAutocorr, autocorr(
+    data = get_data_csv(
+      here::here("./data/efi-neon-data/terrestrial-30-mins.csv")),
+    subfolder = "terr-30min-by-site",
+    datatype = "terr-30min")),
+  tar_target(aquaticHourlyAutocorr, autocorr(
+    data = get_data_csv(
+      here::here("./data/efi-neon-data/aquatic-hourly.csv")),
+    subfolder = "aquatic-hourly-by-site",
+    datatype = "aquatic-hourly")),
+  tar_target(aquaticDailyAutocorr, autocorr(
+    data = get_data_csv(
+      here::here("./data/efi-neon-data/aquatic-hourly.csv")),
+    subfolder = "aquatic-hourly-by-site",
+    datatype = "aquatic-hourly")),
 )
