@@ -26,5 +26,6 @@ terr <- terr_daily[which(terr_daily$site_id == "BLAN" &
                            terr_daily$variable == "le"), ]
 terr_n <- nrow(terr)
 terr_finite_prop <- sum(is.finite(terr$observation))/terr_n
-terr_zeros <- sum(terr$)
-                        
+terr_zeros <- nrow(terr[which(terr$observation == 0),])
+terr_ties_prop <- sum(terr$observation==0)/terr_n
+terr_n_gaps <- sum(abs(diff(terr$datetime)) >= 2)                        
