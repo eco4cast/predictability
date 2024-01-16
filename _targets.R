@@ -38,7 +38,7 @@ list(
     downloadNeonData,
     pull_data(
       # write controls if copies of the files should be written to the local
-      write = TRUE
+      write = FALSE
     )
   ),
   # autocorrelation plots ======================================================
@@ -65,7 +65,17 @@ list(
     datatype = "aquatic-hourly")),
   tar_target(aquaticDailyAutocorr, autocorr(
     data = get_data_csv(
-      here::here("./data/efi-neon-data/aquatic-hourly.csv")),
-    subfolder = "aquatic-hourly-by-site",
-    datatype = "aquatic-hourly")),
+      here::here("./data/efi-neon-data/aquatic-daily.csv")),
+    subfolder = "aquatic-daily-by-site",
+    datatype = "aquatic-daily")),
+  tar_target(beetlesAutocorr, autocorr(
+    data = get_data_csv(
+      here::here("./data/efi-neon-data/beetles.csv")),
+    subfolder = "beetles-by-site",
+    datatype = "beetles")),
+  tar_target(phenologyAutocorr, autocorr(
+    data = get_data_csv(
+      here::here("./data/efi-neon-data/phenology.csv")),
+    subfolder = "phenology-by-site",
+    datatype = "phenology"))
 )
