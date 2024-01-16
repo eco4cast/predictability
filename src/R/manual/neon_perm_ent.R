@@ -361,6 +361,6 @@ make_variable_plot <- function(listed_res, challenge, variables, colours,
     }
   }
   
-  p <- ggplot2::ggplot(data = listed_res$challenge) + 
+  p <- ggplot2::ggplot(data = listed_res$challenge) 
     
 }
