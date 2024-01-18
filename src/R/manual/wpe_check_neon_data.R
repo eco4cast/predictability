@@ -32,7 +32,12 @@ terr_n <- nrow(terr)
 terr_finite_prop <- sum(is.finite(terr$observation))/terr_n
 terr_zeros <- nrow(terr[which(terr$observation == 0),])
 terr_ties_prop <- sum(terr$observation==0)/terr_n
-terr_n_gaps <- sum(abs(diff(terr$datetime)) >= 2)         
+terr_n_gaps <- sum(abs(diff(terr$datetime)) >= 2)  
+terr_gaps <- abs(diff(terr$datetime))[which(
+  abs(diff(terr$datetime)) >= 2
+)]
+ggplot() + 
+  geom_density(aes(x = terr_gaps))
 
 # for demonstration purposes, make a plot that shows the locations of missing
 # observations along with the data 
@@ -53,6 +58,40 @@ missing_blan_le <- ggplot() +
            alpha = 0.2, colour = "lightblue") +
   geom_point(data = terr_comp, 
              aes(x = datetime, y = observation)) + 
+  labs(x = "time", y = "le") + 
+  theme_base()
+ggsave(
+  here::here("./figs/manually-generated/terr-daily-missing-obs-blan-le.png"),
+  missing_blan_le
+)
+
+# make the same plots for when we have rolling averages ========================
+
+make_groups <- function(df, groupings) {
+  
+  for(i in groupings) {
+    col_name <- paste0("grouping_",i,"d")
+    df[, col_name] <- rep(1:ceiling(nrow(df)/i), each = i)[1:nrow(df)]
+  }
+  
+  df
+  
+}
+
+terr_fill_options <- make_groups(df = terr_comp, groupings = c(2, 3, 5, 7))
+
+terr_fill_options <- terr_comp %>% 
+  dplyr::arrange(datetime) %>% 
+  dplyr::mutate(
+    grouping_2d = make_groups(., grouping = 2)
+  )
+missing_blan_le_2d <- ggplot() +
+  geom_col(data = terr_fill_options[which(
+    is.na(terr_fill_options$observation)),],
+           aes(x = datetime, y = 200),
+           alpha = 0.2, colour = "lightblue") +
+  geom_point(data = terr_fill_options, 
+             aes(x = datetime, y = observation_2d)) + 
   labs(x = "time", y = "le") + 
   theme_base()
 ggsave(
