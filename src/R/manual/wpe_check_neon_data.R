@@ -95,10 +95,82 @@ missing_blan_le_2d <- ggplot() +
            alpha = 0.2, colour = "lightblue") +
   geom_point(data = terr_2d, 
              aes(x = mean_datetime, y = mean_obs)) + 
-  labs(x = "time", y = "le") + 
+  labs(x = "time", y = "le", title = "2-day average") + 
   theme_base()
 ggsave(
   here::here(paste0("./figs/manually-generated/",
                     "terr-daily-missing-obs-blan-le-2d-avg.png")),
   missing_blan_le_2d
+)
+
+## 3 day option ================================================================
+
+
+terr_3d <- terr_fill_options %>% 
+  dplyr::group_by(grouping_3d) %>% 
+  dplyr::summarize(
+    mean_datetime = mean(datetime),
+    mean_obs = mean(observation, na.rm = TRUE)
+  )
+
+missing_blan_le_3d <- ggplot() +
+  geom_col(data = terr_3d[which(is.na(terr_3d$mean_obs)),],
+           aes(x = mean_datetime, y = 200),
+           alpha = 0.2, colour = "lightblue") +
+  geom_point(data = terr_3d, 
+             aes(x = mean_datetime, y = mean_obs)) + 
+  labs(x = "time", y = "le", title = "3-day average") + 
+  theme_base()
+ggsave(
+  here::here(paste0("./figs/manually-generated/",
+                    "terr-daily-missing-obs-blan-le-3d-avg.png")),
+  missing_blan_le_3d
+)
+
+## 5 day option ================================================================
+
+
+terr_5d <- terr_fill_options %>% 
+  dplyr::group_by(grouping_5d) %>% 
+  dplyr::summarize(
+    mean_datetime = mean(datetime),
+    mean_obs = mean(observation, na.rm = TRUE)
+  )
+
+missing_blan_le_5d <- ggplot() +
+  geom_col(data = terr_5d[which(is.na(terr_5d$mean_obs)),],
+           aes(x = mean_datetime, y = 200),
+           alpha = 0.2, colour = "lightblue") +
+  geom_point(data = terr_5d, 
+             aes(x = mean_datetime, y = mean_obs)) + 
+  labs(x = "time", y = "le", title = "5-day average") + 
+  theme_base()
+ggsave(
+  here::here(paste0("./figs/manually-generated/",
+                    "terr-daily-missing-obs-blan-le-5d-avg.png")),
+  missing_blan_le_5d
+)
+
+## 7 day option ================================================================
+
+
+terr_7d <- terr_fill_options %>% 
+  dplyr::group_by(grouping_7d) %>% 
+  dplyr::summarize(
+    mean_datetime = mean(datetime),
+    mean_obs = mean(observation, na.rm = TRUE)
+  )
+
+missing_blan_le_7d <- ggplot() +
+  geom_col(data = terr_7d[which(is.na(terr_7d$mean_obs)),],
+           aes(x = mean_datetime, y = 200),
+           alpha = 0.2, colour = "lightblue") +
+  geom_point(data = terr_7d, 
+             aes(x = mean_datetime, y = mean_obs)) + 
+  labs(x = "time", y = "le", title = "7-day average") + 
+  theme_base()
+ggsave(
+  here::here(paste0("./figs/manually-generated/",
+                    "terr-daily-missing-obs-blan-le-7d-avg.png")),
+  missing_blan_le_7d
 )
