@@ -80,21 +80,25 @@ make_groups <- function(df, groupings) {
 
 terr_fill_options <- make_groups(df = terr_comp, groupings = c(2, 3, 5, 7))
 
-terr_fill_options <- terr_comp %>% 
-  dplyr::arrange(datetime) %>% 
-  dplyr::mutate(
-    grouping_2d = make_groups(., grouping = 2)
+## 2 day option ================================================================
+
+terr_2d <- terr_fill_options %>% 
+  dplyr::group_by(grouping_2d) %>% 
+  dplyr::summarize(
+    mean_datetime = mean(datetime),
+    mean_obs = mean(observation, na.rm = TRUE)
   )
+
 missing_blan_le_2d <- ggplot() +
-  geom_col(data = terr_fill_options[which(
-    is.na(terr_fill_options$observation)),],
-           aes(x = datetime, y = 200),
+  geom_col(data = terr_2d[which(is.na(terr_2d$mean_obs)),],
+           aes(x = mean_datetime, y = 200),
            alpha = 0.2, colour = "lightblue") +
-  geom_point(data = terr_fill_options, 
-             aes(x = datetime, y = observation_2d)) + 
+  geom_point(data = terr_2d, 
+             aes(x = mean_datetime, y = mean_obs)) + 
   labs(x = "time", y = "le") + 
   theme_base()
 ggsave(
-  here::here("./figs/manually-generated/terr-daily-missing-obs-blan-le.png"),
-  missing_blan_le
+  here::here(paste0("./figs/manually-generated/",
+                    "terr-daily-missing-obs-blan-le-2d-avg.png")),
+  missing_blan_le_2d
 )
