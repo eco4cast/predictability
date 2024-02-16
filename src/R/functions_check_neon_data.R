@@ -74,7 +74,7 @@ plot_gaps <- function(df, challenge, site_id, variable) {
     raw_missing <- ggplot() +
         geom_col(
             data = df_comp[which(is.na(df_comp$observation)), ],
-            aes(x = datetime, y = 200),
+            aes(x = datetime, y = (max(observation) * 1.1)),
             alpha = 0.2, colour = "lightblue"
         ) +
         geom_point(data = df_comp, aes(x = datetime, y = observation)) +
@@ -106,7 +106,7 @@ plot_gaps <- function(df, challenge, site_id, variable) {
         roll_missing <- ggplot() +
             geom_col(
                 data = df_roll[which(is.na(df_roll$mean_obs)), ],
-                aes(x = mean_datetime, y = 200),
+                aes(x = mean_datetime, y = (max(mean_obs) * 1.1)),
                 alpha = 0.2, colour = "lightblue"
             ) +
             geom_point(data = df_roll, aes(x = mean_datetime, y = mean_obs)) +
@@ -146,12 +146,9 @@ plot_gaps <- function(df, challenge, site_id, variable) {
 #' wpe_check_neon_data(df)
 wpe_check_neon_data <- function(df, challenge) {
     # loop through each site ID and calculate the necessary info
-    site_ids <- unique(df$site_id)
-    variables <- unique(df$variable)
-    df_info <- data.frame(expand.grid(
-        "site_ids" = site_ids,
-        "variables" = variables
-    ))
+    df_info <- df %>%
+        dplyr::group_by(site_id, variable) %>%
+        dplyr::summarize()
 
     # empty df to fill
     results <- data.frame(
@@ -166,14 +163,14 @@ wpe_check_neon_data <- function(df, challenge) {
     # go through each site and variable
     for (row in seq_len(nrow(df_info))) {
         # get subset dataframe for this site and variable
-        temp <- df[which(df$site_id == df_info[row, "site_ids"] &
-            df$variable == df_info[row, "variables"]), ]
+        temp <- df[which(df$site_id == df_info[row, "site_id"] &
+            df$variable == df_info[row, "variable"]), ]
 
         # make plot
         plot_gaps(
             df = temp, challenge = challenge,
-            site_id = df_info[row, "site_ids"],
-            variable = df_info[row, "variables"]
+            site_id = df_info[row, "site_id"],
+            variable = df_info[row, "variable"]
         )
         # calculate the necessary info
         results_temp <- data.frame(
