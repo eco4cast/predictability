@@ -8,6 +8,43 @@
 #' library
 #'
 
+#' @title make_groups
+#'
+#' @description This function takes the dataframe and calculates rolling
+#' averages for each scale of aggregation
+#'
+#' @param df A dataframe of the NEON data
+#' @param challenge The name of the challenge information
+#'
+#' @return df with all the gap options
+#' @export
+#' @examples
+#' make_groups(df, )
+make_groups <- function(df, groupings = c(2, 3, 5, 7)) {
+    for (i in groupings) {
+        col_name <- paste0("grouping_", i, "d")
+        df[, col_name] <- rep(1:ceiling(nrow(df) / i), each = i)[1:nrow(df)]
+    }
+
+    return(df)
+}
+
+#' @title plot_gaps
+#'
+#' @description This function plots the gaps in the time-series for each
+#' site and variable for a given challenge dataset. Writes files of each plot
+#'
+#' @param df A dataframe of the NEON data
+#' @param challenge The name of the challenge information
+#'
+#' @return None
+#' @export
+#' @examples
+#' plot_gaps(df)
+plot_gaps <- function(df, challenge) {
+
+}
+
 #' @title wpe_check_neon_data
 #'
 #' @description This function checks the data for the following:
