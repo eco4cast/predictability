@@ -11,10 +11,10 @@
 #' @title dyn_grouping
 #'
 #' @description This function allows you to do easy dynamic grouping, which is
-#' supposed to be supported in dplyr but I can't get to work 
+#' supposed to be supported in dplyr but I can't get to work
 #'
 #' @param df A dataframe of the NEON data
-#' @param var_name The variable to group by 
+#' @param var_name The variable to group by
 #'
 #' @return df with all the groupings applied
 #' @export
@@ -58,13 +58,13 @@ make_groups <- function(df, groupings = c(2, 3, 5, 7)) {
 #' @export
 #' @examples
 #' plot_gaps(df)
-plot_gaps <- function(df, challenge) {
+plot_gaps <- function(df, challenge, site_id, variable) {
     # make dataframe to join the dates to so it's easier to plot
     df_comp <- data.frame(
         datetime = seq(as.Date(min(df$datetime)), as.Date(max(df$datetime)),
             by = "days"
         )
-        ) %>%
+    ) %>%
         dplyr::left_join(
             .,
             y = df,
@@ -78,13 +78,18 @@ plot_gaps <- function(df, challenge) {
             alpha = 0.2, colour = "lightblue"
         ) +
         geom_point(data = df_comp, aes(x = datetime, y = observation)) +
-        labs(x = "time", y = variable) +
+        labs(x = "time", y = variable, paste0(
+            "Gaps in raw time-series for ", site_id, " ", variable
+        )) +
         theme_base()
     # save the plot
     ggsave(
-        here::here(paste0(
-            "./figs/neon-data-gaps/",
-            challenge, "-",site, "-", variable, "-",".png")),
+        here::here(
+            paste0(
+                "./figs/neon-data-gaps/", challenge, "/",
+                site_id, "-", variable, "-", "raw-timeseries", ".png"
+            )
+        ),
         raw_missing
     )
     # now plot the different rolling averages
@@ -104,22 +109,19 @@ plot_gaps <- function(df, challenge) {
                 aes(x = mean_datetime, y = 200),
                 alpha = 0.2, colour = "lightblue"
             ) +
-            geom_point(
-                data = df_roll,
-                aes(x = mean_datetime, y = mean_obs)
-            ) +
+            geom_point(data = df_roll, aes(x = mean_datetime, y = mean_obs)) +
             labs(x = "time", y = variable, title = paste0(
                 "Gaps with rolling average of ", rolling, " days"
             )) +
             theme_base()
         # save the plot
         ggsave(
-            here::here(paste0(
-                "./figs/neon-data-gaps/",
-                challenge, "-",
-                site, "-", 
-                variable, "-",
-                rolling, "d.png"),
+            here::here(
+                paste0(
+                    "./figs/neon-data-gaps/", challenge, "/", site_id, "-",
+                    variable, "-", "rolling-average-", rolling, "-days.png"
+                )
+            ),
             roll_missing
         )
     }
@@ -132,7 +134,8 @@ plot_gaps <- function(df, challenge) {
 #' 2) proportion of zeros in the time-series
 #' 3) proportion of ties in the time-series
 #' 4) gaps
-#' This also writes a formatted table to file with the results
+#' This also writes a formatted table to file with the results and plots the
+#' gaps in the time-series for each site/variable combo
 #'
 #' @param df A dataframe of the NEON data
 #' @param challenge The name of the challenge information
@@ -165,6 +168,13 @@ wpe_check_neon_data <- function(df, challenge) {
         # get subset dataframe for this site and variable
         temp <- df[which(df$site_id == df_info[row, "site_ids"] &
             df$variable == df_info[row, "variables"]), ]
+
+        # make plot
+        plot_gaps(
+            df = temp, challenge = challenge,
+            site_id = df_info[row, "site_ids"],
+            variable = df_info[row, "variables"]
+        )
         # calculate the necessary info
         results_temp <- data.frame(
             site_id = temp[1, "site_id"],
