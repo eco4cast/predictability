@@ -84,6 +84,10 @@ make_groups <- function(df, groupings) {
 terr_fill_options <- make_groups(df = terr_comp, groupings = c(2, 3, 5, 7))
 
 ## 2 day option ================================================================
+my_mean <- function(data, var1, var2) {
+  dplyr::summarise(data, mean({{ var1 }} + {{ var2 }}))
+}
+my_mean(mtcars, cyl, am)
 
 terr_2d <- terr_fill_options %>%
   dplyr::group_by(grouping_2d) %>%

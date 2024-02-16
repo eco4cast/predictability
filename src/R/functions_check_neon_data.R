@@ -8,6 +8,22 @@
 #' library
 #'
 
+#' @title dyn_grouping
+#'
+#' @description This function allows you to do easy dynamic grouping, which is
+#' supposed to be supported in dplyr but I can't get to work 
+#'
+#' @param df A dataframe of the NEON data
+#' @param var_name The variable to group by 
+#'
+#' @return df with all the groupings applied
+#' @export
+#' @examples
+#' dyn_grouping(df, "grouping_2d")
+dyn_grouping <- function(df, var_name) {
+    dplyr::group_by(df, {{ var_name }})
+}
+
 #' @title make_groups
 #'
 #' @description This function takes the dataframe and calculates rolling
@@ -19,13 +35,12 @@
 #' @return df with all the gap options
 #' @export
 #' @examples
-#' make_groups(df, )
+#' make_groups(df, groupings = 2)
 make_groups <- function(df, groupings = c(2, 3, 5, 7)) {
     for (i in groupings) {
         col_name <- paste0("grouping_", i, "d")
         df[, col_name] <- rep(1:ceiling(nrow(df) / i), each = i)[1:nrow(df)]
     }
-
     return(df)
 }
 
@@ -36,13 +51,78 @@ make_groups <- function(df, groupings = c(2, 3, 5, 7)) {
 #'
 #' @param df A dataframe of the NEON data
 #' @param challenge The name of the challenge information
+#' @param site_id The site ID of the data
+#' @param variable The variable of the data
 #'
 #' @return None
 #' @export
 #' @examples
 #' plot_gaps(df)
 plot_gaps <- function(df, challenge) {
-
+    # make dataframe to join the dates to so it's easier to plot
+    df_comp <- data.frame(
+        datetime = seq(as.Date(min(df$datetime)), as.Date(max(df$datetime)),
+            by = "days"
+        )
+        ) %>%
+        dplyr::left_join(
+            .,
+            y = df,
+            by = "datetime"
+        )
+    # plot the gaps in the raw time-series
+    raw_missing <- ggplot() +
+        geom_col(
+            data = df_comp[which(is.na(df_comp$observation)), ],
+            aes(x = datetime, y = 200),
+            alpha = 0.2, colour = "lightblue"
+        ) +
+        geom_point(data = df_comp, aes(x = datetime, y = observation)) +
+        labs(x = "time", y = variable) +
+        theme_base()
+    # save the plot
+    ggsave(
+        here::here(paste0(
+            "./figs/neon-data-gaps/",
+            challenge, "-",site, "-", variable, "-",".png")),
+        raw_missing
+    )
+    # now plot the different rolling averages
+    for (rolling in c(2, 3, 5, 7)) {
+        # make the rolling averages
+        df_fill_options <- make_groups(df = df_comp, groupings = rolling)
+        df_roll <- df_fill_options %>%
+            dplyr::group_by(.data[[paste0("grouping_", rolling, "d")]]) %>%
+            dplyr::summarize(
+                mean_datetime = mean(datetime),
+                mean_obs = mean(observation, na.rm = TRUE)
+            )
+        # plot the gaps in the rolling averages
+        roll_missing <- ggplot() +
+            geom_col(
+                data = df_roll[which(is.na(df_roll$mean_obs)), ],
+                aes(x = mean_datetime, y = 200),
+                alpha = 0.2, colour = "lightblue"
+            ) +
+            geom_point(
+                data = df_roll,
+                aes(x = mean_datetime, y = mean_obs)
+            ) +
+            labs(x = "time", y = variable, title = paste0(
+                "Gaps with rolling average of ", rolling, " days"
+            )) +
+            theme_base()
+        # save the plot
+        ggsave(
+            here::here(paste0(
+                "./figs/neon-data-gaps/",
+                challenge, "-",
+                site, "-", 
+                variable, "-",
+                rolling, "d.png"),
+            roll_missing
+        )
+    }
 }
 
 #' @title wpe_check_neon_data
