@@ -147,8 +147,8 @@ plot_gaps <- function(df, challenge, site_id, variable) {
 wpe_check_neon_data <- function(df, challenge) {
     # loop through each site ID and calculate the necessary info
     df_info <- df %>%
-        dplyr::group_by(site_id, variable) %>%
-        dplyr::summarize()
+        dplyr::select(site_id, variable) %>%
+        unique()
 
     # empty df to fill
     results <- data.frame(
@@ -163,8 +163,8 @@ wpe_check_neon_data <- function(df, challenge) {
     # go through each site and variable
     for (row in seq_len(nrow(df_info))) {
         # get subset dataframe for this site and variable
-        temp <- df[which(df$site_id == df_info[row, "site_id"] &
-            df$variable == df_info[row, "variable"]), ]
+        temp <- df[which(df$site_id == df_info$site_id[row] &
+            df$variable == df_info$variable[row]), ]
 
         # make plot
         plot_gaps(

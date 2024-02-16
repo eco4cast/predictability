@@ -20,6 +20,9 @@
 terr_daily <- readr::read_csv(
   here::here("./data/efi-neon-data/terrestrial-daily.csv")
 )
+aquatic_daily <- readr::read_csv(
+  here::here("./data/efi-neon-data/aquatic-daily.csv")
+)
 source(here::here("./src/R/functions_global.R"))
 
 library(ggplot2)

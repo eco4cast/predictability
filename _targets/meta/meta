@@ -8,7 +8,7 @@ aquaticHourlyPECheck|stem|80c22cda531099c6|bef607f95979013b|02681339b6359500|142
 autocorr|function|aeb6c88338a71951|||||||||||||||
 autocorr_plot|function|796647a4dc6ae380|||||||||||||||
 beetlesAutocorr|stem|17656ca132f3e9f7|2d3b197afe7c8eaa|f63c87fdf5456987|1422540930||t19708.734889527s|a1c456b03adbfbf8|44|rds|local|vector|||8.163||
-beetlesPECheck|stem|61a30e87e8be9812|5393f72ef1fe5afd|02681339b6359500|-1219581189||t19769.2526919692s|a0f06ba485bff0e4|1090|rds|local|vector|||151.966|1m22mRemoved 2483 rows containing missing values geom_point.. 1m22mRemoved 1205 rows containing missing values geom_point.. 1m22mRemoved 779 rows containing missing values geom_point.. 1m22mRemoved 439 rows containing missing values geom_point.. 1m22mRemoved 293 rows containing missing values geom_point.. 1m22mRemoved 2189 rows containing missing values geom_point.. 1m22mRemoved 1086 rows containing missing values geom_point.. 1m22mRemoved 719 rows containing missing values geom_point.. 1m22mRemoved 425 rows containing missing values geom_point.. 1m22mRemoved 299 rows containing missing values geom_point.. 1m22mRemoved 3279 rows containing missing values geom_point.. 1m22mRemoved 1592 rows containing missing values geom_point.. 1m22mRemoved 1029 rows containing missing values geom_point.. 1m22mRemoved 579 rows containing missing values geom_point.. 1m22mRemoved 387 rows containing missing values geom_point.. 1m22mRemoved 2953 rows containing missing values geom_point.. 1m22mRemoved 1420 rows containing missing values geom_point.. 1m22mRemoved 909 rows containing missing values geom_point.. 1m22mRemoved 500 rows containing missing values geom_point.. 1m22mRemoved 325 rows containing missing values geom_point.. 1m22mRemoved 2180 rows containing missing values geom_point.. 1m22mRemoved 1070 rows containing missing values geom_point.. 1m22mRemoved 700 rows containing missing values geom_point.. 1m22mRemoved 404 rows containing missing values geom_point.. 1m22mRemoved 278 rows containing missing values geom_point.. 1m22mRemoved 2567 rows containing missing values geom_point.. 1m22mRemoved 1226 rows containing missing values geom_point.. 1m22mRemoved 779 rows containing missing values geom_point.. 1m22mRemoved 422 rows containing missing va|
+beetlesPECheck|stem|61a30e87e8be9812|5393f72ef1fe5afd|973c46fa61335de5|-1219581189||t19769.2526919692s||1090|rds|local|vector|||0.849|no nonmissing arguments to max returning Inf. no nonmissing arguments to max returning Inf. no nonmissing arguments to max returning Inf. no nonmissing arguments to max returning Inf. no nonmissing arguments to max returning Inf. no nonmissing arguments to max returning Inf. no nonmissing arguments to max returning Inf. no nonmissing arguments to max returning Inf. no nonmissing arguments to max returning Inf. no nonmissing arguments to max returning Inf. no nonmissing arguments to min returning Inf. no nonmissing arguments to max returning Inf|to must be a finite number
 download_neon_data|stem|e407262ca814d05e|16368f4784ab6ea1|d4c2f2b6871f8645|-963001987||t19684.1766061684s|50761153d6db7520|44790659|rds|local|vector|||19.855||
 downloadNeonData|stem|e81ae8622feb55d6|2366ac69bde605f9|d4c2f2b6871f8645|337120435||t19708.1754081513s|76bd8b9e60e007b8|45262458|rds|local|vector|||81.374||
 dyn_grouping|function|bd2a23d92d1ddec3|||||||||||||||
@@ -21,7 +21,7 @@ perm_ent_calc|function|7676e333226f2532|||||||||||||||
 permu_entropy|function|e017af783cc89d4a|||||||||||||||
 phenologyAutocorr|stem|17656ca132f3e9f7|165c4262da78d28c|f63c87fdf5456987|-1205004362||t19708.7351535074s|a1c456b03adbfbf8|44|rds|local|vector|||12.156||
 phenologyPECheck|stem|288f0f83bca20809|fceaaaddcbd58225|02681339b6359500|-2118370346||t19769.2535349794s|bcf5ca172fe46bf7|658|rds|local|vector|||72.833|1m22mRemoved 89 rows containing missing values geom_point.. 1m22mRemoved 35 rows containing missing values geom_point.. 1m22mRemoved 21 rows containing missing values geom_point.. 1m22mRemoved 9 rows containing missing values geom_point.. 1m22mRemoved 5 rows containing missing values geom_point.. 1m22mRemoved 840 rows containing missing values geom_point.. 1m22mRemoved 415 rows containing missing values geom_point.. 1m22mRemoved 276 rows containing missing values geom_point.. 1m22mRemoved 164 rows containing missing values geom_point.. 1m22mRemoved 115 rows containing missing values geom_point.. 1m22mRemoved 66 rows containing missing values geom_point.. 1m22mRemoved 23 rows containing missing values geom_point.. 1m22mRemoved 13 rows containing missing values geom_point.. 1m22mRemoved 4 rows containing missing values geom_point.. 1m22mRemoved 3 rows containing missing values geom_point.. 1m22mRemoved 33 rows containing missing values geom_point.. 1m22mRemoved 11 rows containing missing values geom_point.. 1m22mRemoved 6 rows containing missing values geom_point.. 1m22mRemoved 1 rows containing missing values geom_point.. 1m22mRemoved 1 rows containing missing values geom_point.. 1m22mRemoved 432 rows containing missing values geom_point.. 1m22mRemoved 209 rows containing missing values geom_point.. 1m22mRemoved 133 rows containing missing values geom_point.. 1m22mRemoved 77 rows containing missing values geom_point.. 1m22mRemoved 52 rows containing missing values geom_point.. 1m22mRemoved 24 rows containing missing values geom_point.. 1m22mRemoved 7 rows containing missing values geom_point.. 1m22mRemoved 3 rows containing missing values geom_point.. 1m22mRemoved 1 rows containing missing values geom_point.. 1m22mRemoved 38|
-plot_gaps|function|1e601ec7a19a40d1|||||||||||||||
+plot_gaps|function|72f196b24832cd81|||||||||||||||
 plot_neon_timeseries|stem|5e9c3ae5adec25c9|b4a52739b346ea18|cf4ac059b1bc39ba|1250783951||t19464.7611368927s|758d7d51407f572d|117|rds|local|vector|||117.396|Removed 54 rows containing missing values geom_point.. Removed 54 rows containing missing values geom_point.. Removed 59 rows containing missing values geom_point.. Removed 59 rows containing missing values geom_point.. Removed 15 rows containing missing values geom_point.. Removed 10 rows containing missing values geom_point.. Removed 15 rows containing missing values geom_point.. Removed 10 rows containing missing values geom_point.|
 plot_timeseries|function|69967ed329da583d|||||||||||||||
 pull_data|function|84412c3c358fe6d1|||||||||||||||
@@ -36,4 +36,20 @@ theme_base|function|f527f2058b4de630|||||||||||||||
 theme_foundation|function|1b742cbd4009a9b6|||||||||||||||
 ticks_autocor|function|01b3ebf5a3351110|||||||||||||||
 ticksAutocorr|stem|17656ca132f3e9f7|d04046469fbe68cd|f63c87fdf5456987|-939050472||t19708.7351627107s|a1c456b03adbfbf8|44|rds|local|vector|||0.793||
-wpe_check_neon_data|function|79a36e26e412b658|||||||||||||||
+wpe_check_neon_data|function|b8869d25e59f7747|||||||||||||||
+ordinal_pattern|function|020360b1ad2746ee
+autocorr_plot|function|796647a4dc6ae380
+get_clim|function|94d464998408f909
+std_err|function|3b26304b718e3898
+theme_base|function|f527f2058b4de630
+make_groups|function|08e01762e172b9f6
+theme_foundation|function|1b742cbd4009a9b6
+pull_data|function|84412c3c358fe6d1
+get_data_csv|function|f55fbb93cbb1e4ef
+dyn_grouping|function|bd2a23d92d1ddec3
+permu_entropy|function|e017af783cc89d4a
+autocorr|function|aeb6c88338a71951
+plot_timeseries|function|69967ed329da583d
+plot_gaps|function|72f196b24832cd81
+perm_ent_calc|function|7676e333226f2532
+wpe_check_neon_data|function|c73a249ee5f01ba8
