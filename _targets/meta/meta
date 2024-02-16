@@ -2,10 +2,13 @@ name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iterat
 aquat_day_autocor|function|5a3744022e25178d|||||||||||||||
 aquat_hour_autocor|function|1569165e7623726b|||||||||||||||
 aquaticDailyAutocorr|stem|17656ca132f3e9f7|a8e9a218048b3c1f|f63c87fdf5456987|1071731393||t19708.7334973611s|a1c456b03adbfbf8|44|rds|local|vector|||8.509||
+aquaticDailyPECheck|stem|fa402b44ffeb292d|a5fdcbfcb558f3ce|2b1f3356c014206f|1170706191||t19769.1804406327s|06404c5c64f60b63|922|rds|local|vector|||0.223||
 aquaticHourlyAutocorr|stem|17656ca132f3e9f7|286526d8818a67a1|f63c87fdf5456987|742608950||t19708.7347950208s|a1c456b03adbfbf8|44|rds|local|vector|||17.278||
+aquaticHourlyPECheck|stem|80c22cda531099c6|bef607f95979013b|2b1f3356c014206f|1421374119||t19769.1804380189s|63c2d5d6ce2d0be6|307|rds|local|vector|||0.698||
 autocorr|function|aeb6c88338a71951|||||||||||||||
 autocorr_plot|function|796647a4dc6ae380|||||||||||||||
 beetlesAutocorr|stem|17656ca132f3e9f7|2d3b197afe7c8eaa|f63c87fdf5456987|1422540930||t19708.734889527s|a1c456b03adbfbf8|44|rds|local|vector|||8.163||
+beetlesPECheck|stem|61a30e87e8be9812|5393f72ef1fe5afd|2b1f3356c014206f|-1219581189||t19769.180426123s|a0f06ba485bff0e4|1090|rds|local|vector|||0.273||
 download_neon_data|stem|e407262ca814d05e|16368f4784ab6ea1|d4c2f2b6871f8645|-963001987||t19684.1766061684s|50761153d6db7520|44790659|rds|local|vector|||19.855||
 downloadNeonData|stem|e81ae8622feb55d6|2366ac69bde605f9|d4c2f2b6871f8645|337120435||t19708.1754081513s|76bd8b9e60e007b8|45262458|rds|local|vector|||81.374||
 get_clim|function|94d464998408f909|||||||||||||||
@@ -15,6 +18,7 @@ ordinal_pattern|function|020360b1ad2746ee|||||||||||||||
 perm_ent_calc|function|7676e333226f2532|||||||||||||||
 permu_entropy|function|e017af783cc89d4a|||||||||||||||
 phenologyAutocorr|stem|17656ca132f3e9f7|165c4262da78d28c|f63c87fdf5456987|-1205004362||t19708.7351535074s|a1c456b03adbfbf8|44|rds|local|vector|||12.156||
+phenologyPECheck|stem|288f0f83bca20809|fceaaaddcbd58225|2b1f3356c014206f|-2118370346||t19769.1804299285s|bcf5ca172fe46bf7|658|rds|local|vector|||0.326||
 plot_neon_timeseries|stem|5e9c3ae5adec25c9|b4a52739b346ea18|cf4ac059b1bc39ba|1250783951||t19464.7611368927s|758d7d51407f572d|117|rds|local|vector|||117.396|Removed 54 rows containing missing values geom_point.. Removed 54 rows containing missing values geom_point.. Removed 59 rows containing missing values geom_point.. Removed 59 rows containing missing values geom_point.. Removed 15 rows containing missing values geom_point.. Removed 10 rows containing missing values geom_point.. Removed 15 rows containing missing values geom_point.. Removed 10 rows containing missing values geom_point.|
 plot_timeseries|function|69967ed329da583d|||||||||||||||
 pull_data|function|84412c3c358fe6d1|||||||||||||||
@@ -22,8 +26,11 @@ std_err|function|3b26304b718e3898|||||||||||||||
 terr_30_autocor|function|ed811ec75f905761|||||||||||||||
 terr_day_autocor|function|ded64421df386a82|||||||||||||||
 terr30minsAutocorr|stem|17656ca132f3e9f7|fcc08c0cffee110d|f63c87fdf5456987|1195921226||t19708.7345950315s|a1c456b03adbfbf8|44|rds|local|vector|||94.837||
+terr30minsPECheck|stem|ce02389db65196bc|8748822381502943|2b1f3356c014206f|-691827094||t19769.1805129396s|614b8e67060edffe|819|rds|local|vector|||6.245||
 terrDailyAutocorr|stem|17656ca132f3e9f7|62b7deb029918dd3|f63c87fdf5456987|1594215396||t19708.7350127957s|a1c456b03adbfbf8|44|rds|local|vector|||10.648||
+terrDailyPECheck|stem|1f5640250ba60cf4|af225cf39f87f750|2b1f3356c014206f|-564356508||t19769.1800091103s|72e22d926cc7ff3b|703|rds|local|vector|||0.404||
 theme_base|function|f527f2058b4de630|||||||||||||||
 theme_foundation|function|1b742cbd4009a9b6|||||||||||||||
 ticks_autocor|function|01b3ebf5a3351110|||||||||||||||
 ticksAutocorr|stem|17656ca132f3e9f7|d04046469fbe68cd|f63c87fdf5456987|-939050472||t19708.7351627107s|a1c456b03adbfbf8|44|rds|local|vector|||0.793||
+wpe_check_neon_data|function|295722cd986873c3|||||||||||||||
