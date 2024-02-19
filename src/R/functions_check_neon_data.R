@@ -78,7 +78,7 @@ plot_gaps <- function(df, challenge, site_id, variable) {
                 df_comp$observation,
                 na.rm = TRUE
             ) * 1.1)),
-            alpha = 0.2, , width = 0.001, colour = "lightblue"
+            alpha = 0.2, width = 0.001, colour = "lightblue"
         ) +
         geom_point(data = df_comp, aes(x = datetime, y = observation)) +
         labs(x = "time", y = variable, paste0(
@@ -109,8 +109,8 @@ plot_gaps <- function(df, challenge, site_id, variable) {
         roll_missing <- ggplot() +
             geom_col(
                 data = df_roll[which(is.na(df_roll$mean_obs)), ],
-                aes(x = mean_datetime, y = (max(mean_obs, na.rm = TRUE) * 1.1)),
-                alpha = 0.2, colour = "lightblue"
+                aes(x = mean_datetime, y = (max(df_roll$mean_obs, na.rm = TRUE) * 1.1)),
+                alpha = 0.2, colour = "lightblue", width = 0.001
             ) +
             geom_point(data = df_roll, aes(x = mean_datetime, y = mean_obs)) +
             labs(x = "time", y = variable, title = paste0(
