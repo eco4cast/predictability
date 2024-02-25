@@ -8,22 +8,6 @@
 #' library
 #'
 
-#' @title dyn_grouping
-#'
-#' @description This function allows you to do easy dynamic grouping, which is
-#' supposed to be supported in dplyr but I can't get to work
-#'
-#' @param df A dataframe of the NEON data
-#' @param var_name The variable to group by
-#'
-#' @return df with all the groupings applied
-#' @export
-#' @examples
-#' dyn_grouping(df, "grouping_2d")
-dyn_grouping <- function(df, var_name) {
-    dplyr::group_by(df, {{ var_name }})
-}
-
 #' @title make_groups
 #'
 #' @description This function takes the dataframe and calculates rolling
