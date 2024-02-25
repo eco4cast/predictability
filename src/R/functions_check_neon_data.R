@@ -93,7 +93,9 @@ plot_gaps <- function(df, challenge, site_id, variable) {
         roll_missing <- ggplot() +
             geom_col(
                 data = df_roll[which(is.na(df_roll$mean_obs)), ],
-                aes(x = mean_datetime, y = (max(df_roll$mean_obs, na.rm = TRUE) * 1.1)),
+                aes(x = mean_datetime, y = (max(df_roll$mean_obs,
+                    na.rm = TRUE
+                ) * 1.1)),
                 alpha = 0.2, colour = "lightblue", width = 0.001
             ) +
             geom_point(data = df_roll, aes(x = mean_datetime, y = mean_obs)) +
