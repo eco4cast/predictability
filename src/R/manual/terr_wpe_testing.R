@@ -140,3 +140,47 @@ for (curr_site in unique(le_terr$site_id)) {
         counter <- counter + 1
     }
 }
+
+# run through the PE calculations ==============================================
+
+le_PE_df <- data.frame(
+    site_id = as.character(),
+    wpe = as.numeric(),
+    grouping = as.numeric()
+)
+nee_PE_df <- data.frame(
+    site_id = as.character(),
+    wpe = as.numeric(),
+    grouping = as.numeric()
+)
+
+for (i in seq_len(length(le_df_list))) {
+    # get the site_id
+    le_PE_df[i, "site_id"] <- unique(le_df_list[[i]]$site_id)[
+        which(!is.na(unique(le_df_list[[i]]$site_id)))
+    ]
+    # the grouping
+    le_PE_df[i, "grouping"] <- unique(le_df_list[[i]]$grouping)[
+        which(!is.na(unique(le_df_list[[i]]$grouping)))
+    ]
+    # now the PE
+    le_PE_df[i, "wpe"] <- tryCatch(
+        PE(le_df_list[[i]]$observation,
+            weighted = T, tau = 1, word_length = 3, tie_method = "first"
+        ),
+        error = function(err) NA
+    )
+    # for the other variable
+    nee_PE_df[i, "site_id"] <- unique(nee_df_list[[i]]$site_id)[
+        which(!is.na(unique(nee_df_list[[i]]$site_id)))
+    ]
+    nee_PE_df[i, "grouping"] <- unique(nee_df_list[[i]]$grouping)[
+        which(!is.na(unique(nee_df_list[[i]]$grouping)))
+    ]
+    nee_PE_df[i, "wpe"] <- tryCatch(
+        PE(nee_df_list[[i]]$observation,
+            weighted = T, tau = 1, word_length = 3, tie_method = "first"
+        ),
+        error = function(err) NA
+    )
+}
