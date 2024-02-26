@@ -13,6 +13,7 @@ library(ggplot2)
 library(magrittr)
 
 source(here::here("./src/R/functions_wpe.R"))
+source(here::here("./src/R/functions_global.R"))
 
 # make a list with all the options of the timeseries to calculate permutation
 # entropy for - one for `le` and one for `nee`
@@ -184,3 +185,27 @@ for (i in seq_len(length(le_df_list))) {
         error = function(err) NA
     )
 }
+
+le_PE_df$grouping <- as.factor(le_PE_df$grouping)
+nee_PE_df$grouping <- as.factor(nee_PE_df$grouping)
+
+p_le <- ggplot(data = le_PE_df) +
+    geom_violin(aes(
+        x = grouping, y = wpe, group = grouping,
+        fill = grouping
+    ), colour = "black") +
+    theme_base() +
+    labs(
+        x = "Rolling Window Avg", y = "Weighted Permutation Energy"
+    )
+p_nee <- ggplot(data = nee_PE_df) +
+    geom_violin(aes(
+        x = grouping, y = wpe, group = grouping,
+        fill = grouping
+    ), colour = "black") +
+    theme_base() +
+    labs(
+        x = "Rolling Window Avg", y = "Weighted Permutation Energy"
+    )
+
+phenologyPECheck <- tar_read(phenologyPECheck)
