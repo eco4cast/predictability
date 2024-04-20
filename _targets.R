@@ -39,7 +39,7 @@ list(
     downloadNeonData,
     pull_data(
       # write controls if copies of the files should be written to the local
-      write = FALSE
+      write = TRUE
     )
   ),
   # autocorrelation plots ======================================================
