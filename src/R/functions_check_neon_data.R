@@ -79,6 +79,7 @@ plot_gaps <- function(df, challenge, site_id, variable) {
         ),
         raw_missing
     )
+
     # now plot the different rolling averages
     for (rolling in c(2, 3, 5, 7)) {
         # make the rolling averages
