@@ -1,7 +1,7 @@
 site_id,variable,n,finite_prop,zeros,ties_prop,n_gaps
-SUGG,temperature,220481,1,0,0,49478
-BARC,temperature,290428,1,0,0,38011
-CRAM,temperature,184772,1,0,0,23375
+SUGG,temperature,233491,1,0,0,52301
+BARC,temperature,321705,1,0,0,40758
+CRAM,temperature,189812,1,0,0,23975
 LIRO,temperature,226133,1,0,0,23358
 PRPO,temperature,109391,1,0,0,22959
 PRLA,temperature,155585,1,0,0,20076
