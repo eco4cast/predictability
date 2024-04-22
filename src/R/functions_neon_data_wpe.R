@@ -43,13 +43,20 @@ aquat_daily_wpe <- expand.grid(
   site = unique(df$site_id),
   var = unique(df$variable),
   gap = c(NA, 2, 3, 5, 7)
-)
+) %>%
+  dplyr::filter(
+    !is.na(var) & !is.na(site)
+  )
+aquat_daily_wpe$wpe <- NA
 
 for (i in seq_len(nrow(aquat_daily_wpe))) {
+  rolling <- aquat_daily_wpe[i, "gap"]
+  df_temp <- df[which(df$variable == aquat_daily_wpe[i, "var"] &
+    which(df$site_id == aquat_daily_wpe[i, "site"])), ]
   if (!is.na(aquat_daily_wpe[i, "gap"])) {
     df_fill_options <- make_groups(
-      df = df,
-      groupings = aquat_daily_wpe[i, "gap"]
+      df = df_temp,
+      groupings = rolling
     )
     df_roll <- df_fill_options %>%
       dplyr::group_by(.data[[paste0("grouping_", rolling, "d")]]) %>%
@@ -57,5 +64,42 @@ for (i in seq_len(nrow(aquat_daily_wpe))) {
         mean_datetime = mean(datetime),
         mean_obs = mean(observation, na.rm = TRUE)
       )
+    # calculate WPE on the variable in question
+    aquat_daily_wpe[i, "wpe"] <- PE(df_roll$mean_obs,
+      word_length = 3,
+      weighted = TRUE, tie_method = "average", tau = 1
+    )
+  }
+  # do it on the data where it's not an NA thing
+  aquat_daily_wpe[i, "wpe"] <- PE(df_temp$observation,
+    word_length = 3,
+    weighted = TRUE, tie_method = "average", tau = 1
+  )
+  if ((i %% 10) == 0) {
+    print(i)
   }
 }
+aquat_daily_wpe$gap <- as.factor(aquat_daily_wpe$gap)
+aquat_daily_wpe$var <- as.factor(aquat_daily_wpe$var)
+
+ggplot(data = aquat_daily_wpe) +
+  geom_density(aes(x = wpe)) +
+  theme_base()
+ggplot(data = aquat_daily_wpe) +
+  geom_violin(aes(x = gap, y = wpe)) +
+  theme_base()
+
+ggplot(data = aquat_daily_wpe) +
+  geom_point(aes(x = var, y = wpe)) +
+  theme_base()
+
+
+ggsave(
+  here::here("./figs/TEMP.png"),
+  ggplot(data = aquat_daily_wpe) +
+    geom_point(aes(x = site, y = wpe, colour = var)) +
+    theme_base()
+)
+ggplot(data = aquat_daily_wpe) +
+  geom_point(aes(x = site, y = wpe, colour = var)) +
+  theme_base()
